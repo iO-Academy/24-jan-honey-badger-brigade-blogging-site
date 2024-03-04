@@ -18,13 +18,12 @@ class BlogModel {
         $blog = $query->fetchAll();
 
         $blogposts = [];
-        foreach ($blog as $blogposts)
+        foreach ($blog as $post)
         {
-            $blogposts = new Blog($blogposts['id'], $blogposts['title'], $blogposts['content'], $blogposts['authorid'], $blogposts['posttime']);
+            $blogposts[] = new Blog($post['id'], $post['title'], $post['content'], $post['authorid'], gmdate("d/m/y", strtotime($post['posttime'])));
         }
 
         return $blogposts;
-
 
     }
 
