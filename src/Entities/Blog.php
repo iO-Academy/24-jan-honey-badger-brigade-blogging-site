@@ -5,9 +5,10 @@ readonly class Blog {
     public string $title;
     public string $content;
     public int $authorId;
-    public int $postTime;
+    //changed postTime to string as gmdate in BlogModel returns a string.
+    public string $postTime;
 
-    public function __construct(int $id, string $title, string $content, int $authorId, int $postTime)
+    public function __construct(int $id, string $title, string $content, int $authorId, string $postTime)
     {
         $this->id = $id;
         $this->title = $title;
