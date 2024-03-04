@@ -6,7 +6,7 @@ require_once 'src/Models/UserModel.php';
 session_start();
 $db = connectToDb();
 $userModel = new UserModel($db);
-$errorMessage = "";
+$errorMessage = '';
 
 if(isset($_POST['submit'])) {
     $inputtedUsername = $_POST['username'];
@@ -14,18 +14,15 @@ if(isset($_POST['submit'])) {
 
     $verifyUser = $userModel->getUserByUsername($inputtedUsername);
     if($verifyUser === false) {
-        echo displayLoginErrorMessage();
+        $errorMessage = 'Invalid username or password';
     }elseif (password_verify($inputtedPassword, $verifyUser->password)){
         $_SESSION['userid']=$verifyUser->id;
         header('Location: index.php');
     }else {
-        echo displayLoginErrorMessage();
+        $errorMessage = 'Invalid username or password';
     }
 }
 
-function displayLoginErrorMessage() {
-    $errorMessage = 'Invalid username or password';
-}
 
 ?>
 
