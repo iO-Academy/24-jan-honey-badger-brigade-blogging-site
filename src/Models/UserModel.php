@@ -14,6 +14,9 @@ class UserModel
     {
         $pdo = $this->db;
        // Prepare SQL statement
+        //check if username already exists in the db
+        //check the format of the email
+
         $query = $pdo->prepare('INSERT INTO `users` (`username`, `email`, `password`) VALUES(:username, :email, :hashedPassword)');
 
         // Execute the query
