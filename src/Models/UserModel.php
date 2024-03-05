@@ -10,12 +10,13 @@ class UserModel
     {
         $this->db = $db;
     }
-    public function registerUser($username, $email, $hashedPassword)
+
+    public function registerUser($username, $email, $password)
     {
         $pdo = $this->db;
-       // Prepare SQL statement
-        //check if username already exists in the db
-        //check the format of the email
+
+        //hash the password that was provided
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
         $query = $pdo->prepare('INSERT INTO `users` (`username`, `email`, `password`) VALUES(:username, :email, :hashedPassword)');
 
@@ -26,4 +27,21 @@ class UserModel
             ':hashedPassword' => $hashedPassword,
         ]);
     }
+
+    public function usernameExists($username): bool
+    {
+        $pdo = $this->db;
+        // Prepare SQL statement we are going to need
+        $queryUsername = $pdo->prepare('SELECT `username` FROM `users` WHERE `username` = :username');
+        //check if username already exists in the db
+        $queryUsername->execute([':username' => $username]);
+        $user = $queryUsername->fetch(PDO::FETCH_ASSOC);
+        if (!$user) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
 }
