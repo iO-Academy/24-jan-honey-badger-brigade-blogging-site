@@ -30,13 +30,8 @@ if ($_SESSION['userid']===false){
         <a href="#">Register</a>';
 } else {
     $isUserLoggedIn = '<a href="#">Create Post</a>';
-
 }
-
-
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">

@@ -10,14 +10,12 @@ $blogModel = new BlogModel($db);
 $blogs = $blogModel->getAllPosts();
 
 if ($_SESSION['userid'] === false){
-    $isUserLoggedIn = '<a href="login.php">Login</a>
-        <a href="#">Register</a>';
-} else {
-    $isUserLoggedIn = '<a href="#">Create Post</a>';
-
+    $isUserLoggedIn = '<a href="login.php">Login</a>';
 }
-
-
+else {
+    $isUserLoggedIn = '';
+//    $isUserLoggedIn = '<a href="#">Create Post</a>';
+}
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +32,6 @@ if ($_SESSION['userid'] === false){
         <?php echo $isUserLoggedIn; ?>
     </div>
 </nav>
-
 <form class="container lg:w-1/2 gap-5 mx-auto mb-10 flex justify-between items-center flex-col lg:flex-row px-5 sm:px-0">
     <div class=" w-full flex flex-col lg:flex-row gap-5">
 <!--        <div>-->
@@ -59,12 +56,8 @@ if ($_SESSION['userid'] === false){
 <!--            </select>-->
 <!--        </div>-->
     </div>
-
-
     <input class="px-3 py-2 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" type="submit" value="Filter">
-
 </form>
-
 <section class="container lg:w-1/2 mx-auto flex flex-col gap-5">
 <!--    echo HTML each time go through loop-->
     <?php
@@ -84,9 +77,8 @@ if ($_SESSION['userid'] === false){
             </div>
         </article>
     <?php endforeach; }
-    else {echo 'Sorry, no posts found';}
+    else {echo 'Sorry, no posts found.';}
         ?>
-
 </section>
 </body>
 </html>
