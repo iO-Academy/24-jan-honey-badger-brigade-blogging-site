@@ -2,20 +2,15 @@
 require_once 'src/Models/UserModel.php';
 require_once 'src/Entities/User.php';
 require_once 'src/connectToDb.php';
+require_once 'src/passwordHint.php';
 $db = connectToDb();
 $userError = '';
 $passwordError = '';
 $emailError = '';
 
 $userModel = new UserModel($db);
-function passwordHint($password): string|null
-{
-    if (strlen($password) < 8) {
-        return "Password must be at least 8 characters long.";
-    } else {
-        return null;
-    }
-}
+
+
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get form data
@@ -37,13 +32,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Call registerUser function
     $result = $userModel->registerUser($username, $email, $password);
+<<<<<<< HEAD:register.php
     $user = $userModel->getUserByEmail($email);
     $_SESSION['userid'] = $user->id;
     header('Location: index.php');
 
     // Display result
     echo "<p>$result</p>";
+=======
+>>>>>>> 36b72bd6ee696bedea95a928605f426a665207a5:Register.php
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
