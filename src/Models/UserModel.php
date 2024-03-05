@@ -21,7 +21,7 @@ class UserModel
     private function hydrateSingleUser($data): User|false
     {
         if ($data != false) {
-        $email = new Email($data['email']);
+            $email = new Email($data['email']);
             return new User ($data['id'], $data['username'], $data['password'], $email);
         } else {
             return false;
