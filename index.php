@@ -60,6 +60,7 @@ $blogs = $blogModel->getAllPosts();
 <section class="container lg:w-1/2 mx-auto flex flex-col gap-5">
 <!--    echo HTML each time go through loop-->
     <?php
+    if (count($blogs) > 0) {
     foreach ($blogs as $blogpost): ?>
         <article class="p-8 border border-solid rounded-md">
 <!--            <span class="px-3 py-2 bg bg-slate-200 inline-block mb-4 rounded-sm">Science and Nature</span>-->
@@ -74,7 +75,10 @@ $blogs = $blogModel->getAllPosts();
 <!--                <a class="px-3 py-2 mt-4 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" href="singlePost.php?id=--><?php //echo $blogpost->id; ?><!--">View post</a>-->
             </div>
         </article>
-    <?php endforeach; ?>
+    <?php endforeach; }
+    else {echo 'Sorry, no posts found';}
+        ?>
+
 </section>
 </body>
 </html>

@@ -15,6 +15,7 @@ readonly class Blog {
         $this->extract = substr($content, 0, 100) . '...';
         $this->content = $content;
         $this->authorId = $authorId;
-        $this->postTime = $postTime;
+        $this->postTime = gmdate("d/m/y", strtotime($postTime));
     }
+
 }
