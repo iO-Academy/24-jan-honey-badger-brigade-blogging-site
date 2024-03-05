@@ -6,16 +6,7 @@ require_once 'src/Models/BlogModel.php';
 session_start();
 $db = connectToDb();
 $blogModel = new BlogModel($db);
-
 $blogs = $blogModel->getAllPosts();
-
-if ($_SESSION['userid'] === false){
-    $isUserLoggedIn = '<a href="login.php">Login</a>';
-}
-else {
-    $isUserLoggedIn = '';
-//    $isUserLoggedIn = '<a href="#">Create Post</a>';
-}
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +20,9 @@ else {
 <nav class="flex justify-between items-center py-5 px-4 mb-10 border-b border-solid">
     <a href="index.php"><h1 class="text-5xl">Blog</h1></a>
     <div class="flex gap-5">
-        <?php echo $isUserLoggedIn; ?>
+        <?php echo isset($_SESSION['userid']) ?
+        '<a href="logout.php">Logout</a>':
+        '<a href="login.php">Login</a>'; ?>
     </div>
 </nav>
 <form class="container lg:w-1/2 gap-5 mx-auto mb-10 flex justify-between items-center flex-col lg:flex-row px-5 sm:px-0">
