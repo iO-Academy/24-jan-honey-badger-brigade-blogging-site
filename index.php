@@ -22,8 +22,8 @@ $blogs = $blogModel->getAllPosts();
     <a href="index.php"><h1 class="text-5xl">Blog</h1></a>
     <div class="flex gap-5">
 <!--         <a href="#">Create post</a>
-        <a href="#">Login</a>
-        <a href="#">Register</a> -->
+        <a href="#">Login</a> -->
+        <a href="src/Pages/Register.php">Register</a>
     </div>
 </nav>
 
