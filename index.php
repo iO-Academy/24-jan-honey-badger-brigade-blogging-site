@@ -72,7 +72,7 @@ $blogs = $blogModel->getAllPosts();
             <p class="text-2xl mb-2"><?php echo $blogpost->postTime . ' - By ' . $blogpost->id; ?></p>
             <p class="text-2xl mb-2"><?php echo $blogpost->extract ?></p>
             <div class="flex justify-center">
-<!--                <a class="px-3 py-2 mt-4 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" href="singlePost.php?id=--><?php //echo $blogpost->id; ?><!--">View post</a>-->
+                <a class="px-3 py-2 mt-4 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" href="singlePost.php?id=<?php echo $blogpost->id?>">View post</a>
             </div>
         </article>
     <?php endforeach; }
