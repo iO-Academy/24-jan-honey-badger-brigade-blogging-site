@@ -69,3 +69,5 @@ $blog = $blogModel->getBlogById($_GET['id'])
 
 </body>
 </html>
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim placeat similique veritatis voluptas! Ad amet at corporis eius illo in ipsam labore maxime numquam, odit, praesentium quidem sed tempore voluptatem.
