@@ -2,59 +2,63 @@
     require_once 'src/Models/BlogModel.php';
     require_once 'src/connectToDb.php';
 
-    session_start();
     $db = connectToDb();
+    var_dump($_SESSION['userid']);
 
-    // Check if user is logged in - else send back to homepage
-
+    // Check if user is logged in - else send back to login (this doesn't work right now?)
     if (!isset($_SESSION['userid'])) {
         header('Location: src/login.php');
     } else {
         $authorid = $_SESSION['userid'];
     }
 
-    // define the variables & messages we need to send
     $title = '';
     $content = '';
     $titleError = '';
     $contentError = '';
     $successMessage = '';
+    $model = new BlogModel($db);
 
-    // if form is submitted, start validating content and tidy up data
     function cleanUpInput($data) {
     $data = trim($data);
     $data = htmlspecialchars($data);
     return $data;
     }
 
-    // check length
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $title = cleanUpInput($_POST['title']);
+        $content = cleanUpInput($_POST['content']);
         if (strlen($_POST['title']) > 30){
             $titleError = "Sorry, titles must be less than 30 characters.";
+            $titleCheck=false;
         }
         elseif (empty($_POST['title'])) {
             $titleError = "Sorry, a title is required";
-        }
-        else
+            $titleCheck=false;
+        } else
         {
-           $title = cleanUpInput($_POST['title']);
+            $titleCheck=true;
         }
-
         if (strlen($_POST['content']) > 1000){
             $contentError = "Sorry, posts must be less than 1000 characters.";
+            $contentCheck=false;
         }
         elseif (empty($_POST['content'])) {
             $contentError = "Sorry, some post content is required";
-        }
-        else
+            $contentCheck=false;
+        } else
         {
-            $content = cleanUpInput($_POST['content']);
+            $contentCheck=true;
         }
     }
 
-    // If content ok, addBlogPost function and show success message, option to visit home page and clear form (ie you can submit another post or checkout your last one on homepage.
 
-//$successMessage = 'Thank you, your post has been submitted. Write another post or view all posts on the <a href="index.php">homepage.</a>';
+    if(isset($titleCheck) && isset($contentCheck)) {
+        $model->addBlogPost($authorid, $title, $content);
+        $title = '';
+        $content = '';
+        $successMessage = 'Thank you, your post has been submitted. Write another post or view all posts on the homepage.';
+    }
 
 ?>
 <!DOCTYPE html>
@@ -80,7 +84,7 @@
     <div class="flex flex-col sm:flex-row mb-5 gap-5">
         <div class="w-full sm:w-2/3">
             <label class="mb-3 block" for="title">Title:</label>
-            <input class="w-full px-3 py-2 text-lg" type="text" id="title" name="title" required/>
+            <input class="w-full px-3 py-2 text-lg" type="text" id="title" name="title" value='<?php echo $title;?>' required/>
             <p><?php echo $titleError; ?></p>
         </div>
         <div class="w-full sm:w-1/3">
@@ -91,7 +95,7 @@
 
     <div class="mb-5">
         <label class="mb-3 block" for="content">Content:</label>
-        <textarea class="w-full" id="content" rows="9" name="content" required></textarea>
+        <textarea class="w-full" id="content" rows="9" name="content" required><?php echo $content;?></textarea>
         <p><?php echo $contentError; ?></p>
     </div>
 
