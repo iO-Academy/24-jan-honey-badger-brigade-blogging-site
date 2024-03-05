@@ -1,4 +1,29 @@
+<?php
+require_once  'src/Models/UserModel.php';
+require_once 'src/Entities/User.php';
+require_once 'src/connectToDb.php';
 
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    //connect to the db
+    $pdo = connectToDb();
+
+    // Create an instance of UserModel
+    $userModel = new UserModel($pdo); // assuming $pdo is initialized somewhere in your script
+
+    // Get form data
+    $username = $_POST["username"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+
+    // Call registerUser function
+    $result = $userModel->registerUser($username, $email, $password);
+
+    // Display result
+    echo "<p>$result</p>";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
