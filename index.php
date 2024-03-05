@@ -14,7 +14,7 @@ if (isset($_SESSION['userid'])){
 }
 else {
     $isUserLoggedIn = '<a href="login.php">Login</a> <a href="register.php">Register</a>';
-//    $isUserLoggedIn = '<a href="#">Create Post</a>';
+//  $isUserLoggedIn = '<a href="#">Create Post</a>';
 }
 ?>
 
@@ -57,10 +57,7 @@ else {
 <!--            </select>-->
 <!--        </div>-->
     </div>
-
-
     <input class="px-3 py-2 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" type="submit" value="Filter">
-
 </form>
 
 <section class="container lg:w-1/2 mx-auto flex flex-col gap-5">
@@ -84,7 +81,6 @@ else {
     <?php endforeach; }
     else {echo 'Sorry, no posts found';}
         ?>
-
 </section>
 </body>
 </html>

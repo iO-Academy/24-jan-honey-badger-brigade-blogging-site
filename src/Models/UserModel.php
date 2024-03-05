@@ -5,16 +5,13 @@ require_once 'src/Entities/User.php';
 class UserModel
 {
     private PDO $db;
-
     public function __construct(PDO $db)
     {
         $this->db = $db;
     }
-
     public function registerUser($username, $email, $password)
     {
         $pdo = $this->db;
-
         //hash the password that was provided
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
@@ -27,7 +24,6 @@ class UserModel
             ':hashedPassword' => $hashedPassword,
         ]);
     }
-
     public function usernameExists($username): bool
     {
         $pdo = $this->db;
@@ -42,6 +38,5 @@ class UserModel
             return true;
         }
     }
-
 
 }
