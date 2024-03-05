@@ -8,7 +8,6 @@ $db = connectToDb();
 $blogModel = new BlogModel($db);
 
 $blogs = $blogModel->getAllPosts();
-
 ?>
 
 <!DOCTYPE html>
