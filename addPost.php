@@ -4,7 +4,7 @@
 
     session_start();
     $db = connectToDb();
-    var_dump($_SESSION['userid']);
+
 
     // Check if user is logged in - else send back to login (this doesn't work right now?)
     if (!isset($_SESSION['userid'])) {
