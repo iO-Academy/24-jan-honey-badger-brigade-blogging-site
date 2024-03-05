@@ -2,6 +2,7 @@
     require_once 'src/Models/BlogModel.php';
     require_once 'src/connectToDb.php';
 
+    session_start();
     $db = connectToDb();
     var_dump($_SESSION['userid']);
 
@@ -18,6 +19,8 @@
     $contentError = '';
     $successMessage = '';
     $model = new BlogModel($db);
+    $titleCheck=false;
+    $contentCheck=false;
 
     function cleanUpInput($data) {
     $data = trim($data);
@@ -53,7 +56,7 @@
     }
 
 
-    if(isset($titleCheck) && isset($contentCheck)) {
+    if($titleCheck && $contentCheck) {
         $model->addBlogPost($authorid, $title, $content);
         $title = '';
         $content = '';
