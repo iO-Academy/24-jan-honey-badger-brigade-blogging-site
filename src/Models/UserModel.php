@@ -15,6 +15,7 @@ class UserModel
     public function getUserByUsername(string $username): User | false
     {
       $query = $this->db->prepare('SELECT `id`, `username`, `email`, `password` FROM `users` WHERE `username`= :username');
+
       $query->execute([
           ':username' => $username
       ]);
@@ -27,8 +28,10 @@ class UserModel
     private function hydrateSingleUser($data): User|false
     {
         if ($data != false) {
+
         $email = new Email($data['email']);
             return new User ($data['id'], $data['username'], $data['password'], $email);
+
         } else {
             return false;
         }

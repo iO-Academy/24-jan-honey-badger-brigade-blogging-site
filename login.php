@@ -4,11 +4,11 @@ require_once 'src/connectToDb.php';
 require_once 'src/Models/UserModel.php';
 
 session_start();
+
 $_SESSION['userid']= false;
 $db = connectToDb();
 $userModel = new UserModel($db);
 $errorMessage = '';
-
 
 if(isset($_POST['submit'])) {
     $inputtedUsername = $_POST['username'];
@@ -24,13 +24,15 @@ if(isset($_POST['submit'])) {
         $errorMessage = 'Invalid username or password';
     }
 }
-if (isset($_SESSION['userid'])){
+
+if ($_SESSION['userid']===false){
     $isUserLoggedIn = '<a href="login.php">Login</a>
         <a href="#">Register</a>';
 } else {
     $isUserLoggedIn = '<a href="#">Create Post</a>';
 
 }
+
 
 ?>
 
@@ -47,6 +49,7 @@ if (isset($_SESSION['userid'])){
 <nav class="flex justify-between items-center py-5 px-4 mb-10 border-b border-solid">
     <a href="index.php"><h1 class="text-5xl">Blog</h1></a>
     <div class="flex gap-5">
+
         <?php echo $isUserLoggedIn; ?>
     </div>
 </nav>
