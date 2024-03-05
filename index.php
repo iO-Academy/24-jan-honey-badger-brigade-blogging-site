@@ -3,11 +3,21 @@
 require_once 'src/connectToDb.php';
 require_once 'src/Models/BlogModel.php';
 
+session_start();
 $db = connectToDb();
-
 $blogModel = new BlogModel($db);
 
 $blogs = $blogModel->getAllPosts();
+
+if ($_SESSION['userid'] === false){
+    $isUserLoggedIn = '<a href="login.php">Login</a>
+        <a href="#">Register</a>';
+} else {
+    $isUserLoggedIn = '<a href="#">Create Post</a>';
+
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -21,9 +31,7 @@ $blogs = $blogModel->getAllPosts();
 <nav class="flex justify-between items-center py-5 px-4 mb-10 border-b border-solid">
     <a href="index.php"><h1 class="text-5xl">Blog</h1></a>
     <div class="flex gap-5">
-<!--         <a href="#">Create post</a>
-        <a href="#">Login</a>
-        <a href="#">Register</a> -->
+        <?php echo $isUserLoggedIn; ?>
     </div>
 </nav>
 
