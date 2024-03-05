@@ -26,6 +26,7 @@ class UserModel
             ':email' => $email,
             ':hashedPassword' => $hashedPassword,
         ]);
+        // Import login function from Story 2 once pushed to main (to log user in once registered)
     }
 
     public function usernameExists($username): bool
