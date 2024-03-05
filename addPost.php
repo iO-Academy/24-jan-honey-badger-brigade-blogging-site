@@ -31,36 +31,31 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $title = cleanUpInput($_POST['title']);
         $content = cleanUpInput($_POST['content']);
-        if (strlen($_POST['title']) > 30){
+        if (strlen($_POST['title']) > 30) {
             $titleError = "Sorry, titles must be less than 30 characters.";
-            $titleCheck=false;
-        }
-        elseif (empty($_POST['title'])) {
+            $titleCheck = false;
+        } elseif (empty($_POST['title'])) {
             $titleError = "Sorry, a title is required";
-            $titleCheck=false;
-        } else
-        {
-            $titleCheck=true;
+            $titleCheck = false;
+        } else {
+            $titleCheck = true;
         }
-        if (strlen($_POST['content']) > 1000){
+        if (strlen($_POST['content']) > 1000) {
             $contentError = "Sorry, posts must be less than 1000 characters.";
-            $contentCheck=false;
-        }
-        elseif (empty($_POST['content'])) {
+            $contentCheck = false;
+        } elseif (empty($_POST['content'])) {
             $contentError = "Sorry, some post content is required";
-            $contentCheck=false;
-        } else
-        {
-            $contentCheck=true;
+            $contentCheck = false;
+        } else {
+            $contentCheck = true;
         }
-    }
 
-
-    if($titleCheck && $contentCheck) {
-        $model->addBlogPost($authorid, $title, $content);
-        $title = '';
-        $content = '';
-        $successMessage = 'Thank you, your post has been submitted. Write another post or view all posts on the homepage.';
+        if ($titleCheck && $contentCheck) {
+            $model->addBlogPost($authorid, $title, $content);
+            $title = '';
+            $content = '';
+            $successMessage = 'Thank you, your post has been submitted. Write another post or view all posts on the homepage.';
+        }
     }
 
 ?>
