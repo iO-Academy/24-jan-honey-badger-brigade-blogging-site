@@ -9,11 +9,11 @@ class UserModel
     {
         $this->db = $db;
     }
-    public function getUserByUsername(string $username): User | false
+    public function getUserByEmail(string $email): User | false
     {
-      $query = $this->db->prepare('SELECT `id`, `username`, `email`, `password` FROM `users` WHERE `username`= :username');
+      $query = $this->db->prepare('SELECT `id`, `username`, `email`, `password` FROM `users` WHERE `email`= :email');
       $query->execute([
-          ':username' => $username
+          ':email' => $email
       ]);
       $data = $query->fetch();
       return $this->hydrateSingleUser($data);

@@ -11,10 +11,10 @@ $userModel = new UserModel($db);
 $errorMessage = '';
 
 if(isset($_POST['submit'])) {
-    $inputtedUsername = $_POST['username'];
+    $inputtedEmail = $_POST['username'];
     $inputtedPassword = $_POST['password'];
 
-    $verifyUser = $userModel->getUserByUsername($inputtedUsername);
+    $verifyUser = $userModel->getUserByEmail($inputtedEmail);
     if($verifyUser === false) {
         $errorMessage = 'Invalid username or password';
     } elseif (password_verify($inputtedPassword, $verifyUser->password)){
