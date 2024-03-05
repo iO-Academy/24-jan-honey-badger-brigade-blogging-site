@@ -47,3 +47,25 @@ $blog = $blogModel->getBlogById($_GET['id'])
         </div>
     </article>
 </section>
+
+<?php echo isset($_SESSION['userid']) ?
+    '<section class="container md:w-1/2 mx-auto mt-5">
+    <form class="p-8 border border-solid rounded-md bg-slate-200">
+        <div class="mb-5">
+            <label class="mb-3 block" for="content">Comment:</label>
+            <textarea class="w-full" id="content" rows="5"></textarea>
+        </div>
+
+        <input class="px-3 py-2 mt-4 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" type="submit" value="Post Comment" />
+    </form>
+</section>': NULL ?>
+
+<section class="container md:w-1/2 mx-auto mt-5 mb-10">
+    <div class="p-8 border border-solid rounded-md bg-slate-200">
+        <div class="text-2xl mb-3">Steve Smith - 01/01/2024</div>
+        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tristique lorem sit amet mi scelerisque, eu imperdiet tortor lobortis.</p>
+    </div>
+</section>
+
+</body>
+</html>
