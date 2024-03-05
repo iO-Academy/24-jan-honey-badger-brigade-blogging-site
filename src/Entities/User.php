@@ -5,7 +5,6 @@ readonly class User
     public string $username;
     public string $password;
     public string $email;
-
     public function __construct(int $id, string $username, string $password, string $email)
     {
         $this->id = $id;

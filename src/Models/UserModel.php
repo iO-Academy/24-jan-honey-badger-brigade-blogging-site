@@ -5,16 +5,13 @@ require_once 'src/Entities/User.php';
 class UserModel
 {
     private PDO $db;
-
     public function __construct(PDO $db)
     {
         $this->db = $db;
     }
-
     public function registerUser($username, $email, $password)
     {
         $pdo = $this->db;
-
         //hash the password that was provided
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
@@ -28,7 +25,6 @@ class UserModel
         ]);
         // Import login function from Story 2 once pushed to main (to log user in once registered)
     }
-
     public function usernameExists($username): bool
     {
         $pdo = $this->db;
@@ -43,6 +39,5 @@ class UserModel
             return true;
         }
     }
-
 
 }

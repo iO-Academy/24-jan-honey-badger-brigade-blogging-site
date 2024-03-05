@@ -3,11 +3,19 @@
 require_once 'src/connectToDb.php';
 require_once 'src/Models/BlogModel.php';
 
+session_start();
 $db = connectToDb();
-
 $blogModel = new BlogModel($db);
-
+//var_dump($_SESSION['userid']);
 $blogs = $blogModel->getAllPosts();
+
+if (isset($_SESSION['userid'])){
+    $isUserLoggedIn = '';
+}
+else {
+    $isUserLoggedIn = '<a href="login.php">Login</a> <a href="register.php">Register</a>';
+//  $isUserLoggedIn = '<a href="#">Create Post</a>';
+}
 ?>
 
 <!DOCTYPE html>
@@ -21,9 +29,7 @@ $blogs = $blogModel->getAllPosts();
 <nav class="flex justify-between items-center py-5 px-4 mb-10 border-b border-solid">
     <a href="index.php"><h1 class="text-5xl">Blog</h1></a>
     <div class="flex gap-5">
-<!--         <a href="#">Create post</a>
-        <a href="#">Login</a>
-        <a href="#">Register</a> -->
+        <?php echo $isUserLoggedIn; ?>
     </div>
 </nav>
 
@@ -51,10 +57,7 @@ $blogs = $blogModel->getAllPosts();
 <!--            </select>-->
 <!--        </div>-->
     </div>
-
-
     <input class="px-3 py-2 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" type="submit" value="Filter">
-
 </form>
 
 <section class="container lg:w-1/2 mx-auto flex flex-col gap-5">
@@ -78,7 +81,6 @@ $blogs = $blogModel->getAllPosts();
     <?php endforeach; }
     else {echo 'Sorry, no posts found';}
         ?>
-
 </section>
 </body>
 </html>

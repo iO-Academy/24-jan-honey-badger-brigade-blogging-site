@@ -3,7 +3,6 @@
 readonly class Email
 {
     public string $email;
-
     public function __construct(string $email)
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -12,7 +11,6 @@ readonly class Email
 
         $this->email = $email;
     }
-
     public function __toString(): string
     {
         return $this->email;
