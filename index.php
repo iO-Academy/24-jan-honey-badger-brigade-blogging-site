@@ -9,7 +9,6 @@ $blogModel = new BlogModel($db);
 
 $blogs = $blogModel->getAllPosts();
 
-//var_dump($blogs['posttime']);
 ?>
 
 <!DOCTYPE html>
@@ -23,9 +22,9 @@ $blogs = $blogModel->getAllPosts();
 <nav class="flex justify-between items-center py-5 px-4 mb-10 border-b border-solid">
     <a href="index.php"><h1 class="text-5xl">Blog</h1></a>
     <div class="flex gap-5">
-        <a href="addPost.php">Create post</a>
-        <a href="login.php">Login</a>
-        <a href="register.php">Register</a>
+<!--         <a href="#">Create post</a>
+        <a href="#">Login</a>
+        <a href="#">Register</a> -->
     </div>
 </nav>
 
