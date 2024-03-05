@@ -17,10 +17,10 @@ if(isset($_POST['submit'])) {
     $verifyUser = $userModel->getUserByUsername($inputtedUsername);
     if($verifyUser === false) {
         $errorMessage = 'Invalid username or password';
-    }elseif (password_verify($inputtedPassword, $verifyUser->password)){
-        $_SESSION['userid']=$verifyUser->id;
+    } elseif (password_verify($inputtedPassword, $verifyUser->password)){
+        $_SESSION['userid'] = $verifyUser->id;
         header('Location: index.php');
-    }else {
+    } else {
         $errorMessage = 'Invalid username or password';
     }
 }
