@@ -14,16 +14,16 @@ $userModel = new UserModel($db);
 $errorMessage = '';
 
 if(isset($_POST['submit'])) {
-    $inputtedEmail = $_POST['username'];
+    $inputtedEmail = $_POST['email'];
     $inputtedPassword = $_POST['password'];
     $verifyUser = $userModel->getUserByEmail($inputtedEmail);
     if($verifyUser === false) {
-        $errorMessage = 'Invalid username or password';
+        $errorMessage = 'Invalid email or password';
     } elseif (password_verify($inputtedPassword, $verifyUser->password)){
         $_SESSION['userid'] = $verifyUser->id;
         header('Location: index.php');
     } else {
-        $errorMessage = 'Invalid username or password';
+        $errorMessage = 'Invalid email or password';
     }
 }
 ?>
@@ -47,8 +47,8 @@ if(isset($_POST['submit'])) {
 <form method="post" class="container lg:w-1/4 mx-auto flex flex-col p-8 bg-slate-200">
     <h2 class="text-3xl mb-4 text-center">Login</h2>
     <div class="mb-5">
-        <label class="mb-3 block" for="username">Username:</label>
-        <input class="w-full px-3 py-2 text-lg" type="text" id="username" name="username" />
+        <label class="mb-3 block" for="email">Email:</label>
+        <input class="w-full px-3 py-2 text-lg" type="text" id="email" name="email" />
     </div>
     <div class="mb-5">
         <label class="mb-3 block" for="password">Password:</label>
