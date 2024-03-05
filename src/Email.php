@@ -19,4 +19,3 @@ readonly class Email
     }
 }
 
-$email = new EmailAddress('ashton@test.com');

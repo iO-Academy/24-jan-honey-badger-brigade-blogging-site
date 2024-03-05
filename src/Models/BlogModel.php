@@ -1,19 +1,18 @@
 <?php
 
 require_once 'src/Entities/Blog.php';
-require_once 'src/connectToDb.php';
-
 class BlogModel {
     private PDO $db;
-
     public function __construct(PDO $db)
     {
         $this->db = $db;
     }
-
-    public function getAllPosts()
+    /**
+     * @return Blog[];
+     */
+    public function getAllPosts(): array
     {
-        $query = $this->db->prepare('SELECT * FROM `blogposts` ORDER BY `posttime` DESC;');
+        $query = $this->db->prepare('SELECT `id`, `title`, `content`, `authorid`, `posttime`  FROM `blogposts` ORDER BY `posttime` DESC;');
         $query ->execute();
         $blog = $query->fetchAll();
 
@@ -22,9 +21,6 @@ class BlogModel {
         {
             $blogposts[] = new Blog($post['id'], $post['title'], $post['content'], $post['authorid'], gmdate("d/m/y", strtotime($post['posttime'])));
         }
-
         return $blogposts;
-
     }
-
 }
