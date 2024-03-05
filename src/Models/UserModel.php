@@ -1,6 +1,7 @@
 <?php
 
 require_once 'src/Entities/User.php';
+require_once 'src/Email.php';
 
 class UserModel
 {
@@ -13,7 +14,8 @@ class UserModel
 
     public function getUserByUsername(string $username): User | false
     {
-      $query = $this->db->prepare('SELECT * FROM `users` WHERE `username`= :username');
+      $query = $this->db->prepare('SELECT `id`, `username`, `email`, `password` FROM `users` WHERE `username`= :username');
+
       $query->execute([
           ':username' => $username
       ]);
@@ -27,7 +29,9 @@ class UserModel
     {
         if ($data != false) {
 
-            return new User ($data['id'], $data['username'], $data['password'], $data['email']);
+        $email = new Email($data['email']);
+            return new User ($data['id'], $data['username'], $data['password'], $email);
+
         } else {
             return false;
         }
