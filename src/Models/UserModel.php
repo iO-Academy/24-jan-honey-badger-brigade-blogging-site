@@ -18,7 +18,7 @@ class UserModel
       $data = $query->fetch();
       return $this->hydrateSingleUser($data);
     }
-    private function hydrateSingleUser($data): User|false
+    private function hydrateSingleUser(array $data): User|false
     {
         if ($data != false) {
             $email = new Email($data['email']);

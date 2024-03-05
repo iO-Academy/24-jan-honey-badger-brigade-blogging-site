@@ -16,7 +16,8 @@ $errorMessage = '';
 if(isset($_POST['submit'])) {
     $inputtedEmail = $_POST['email'];
     $inputtedPassword = $_POST['password'];
-    $verifyUser = $userModel->getUserByEmail($inputtedEmail);
+
+    $verifyUser = $userModel->getUserByEmail(new Email($inputtedEmail));
     if($verifyUser === false) {
         $errorMessage = 'Invalid email or password';
     } elseif (password_verify($inputtedPassword, $verifyUser->password)){
@@ -48,7 +49,7 @@ if(isset($_POST['submit'])) {
     <h2 class="text-3xl mb-4 text-center">Login</h2>
     <div class="mb-5">
         <label class="mb-3 block" for="email">Email:</label>
-        <input class="w-full px-3 py-2 text-lg" type="text" id="email" name="email" />
+        <input class="w-full px-3 py-2 text-lg" type="email" id="email" name="email" />
     </div>
     <div class="mb-5">
         <label class="mb-3 block" for="password">Password:</label>
