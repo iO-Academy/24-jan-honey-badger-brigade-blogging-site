@@ -10,7 +10,7 @@ class BlogModel {
         $this->db = $db;
     }
 
-    public function addBlogPost(int $authorid, string $title, string $content, int $timestamp): bool
+    public function addBlogPost(int $authorid, string $title, string $content): bool
     {
         $query = $this->db->prepare
         ('INSERT INTO `blogposts` (`authorid`, `title`, `content`, `posttime`)
@@ -19,7 +19,7 @@ class BlogModel {
             ':authorid' => $authorid,
             ':title' => $title,
             ':content' => $content,
-            ':posttime' => $timestamp,
+            ':posttime' => date("y-m-d h:i:s")
         ]);
     }
 }
