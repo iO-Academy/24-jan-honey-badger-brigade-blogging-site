@@ -4,9 +4,9 @@ require_once 'src/connectToDb.php';
 require_once 'src/Models/BlogModel.php';
 
 session_start();
+var_dump($_SESSION['userid']);
 $db = connectToDb();
 $blogModel = new BlogModel($db);
-//var_dump($_SESSION['userid']);
 $blogs = $blogModel->getAllPosts();
 
 if (isset($_SESSION['userid'])){
@@ -29,12 +29,14 @@ else {
 <nav class="flex justify-between items-center py-5 px-4 mb-10 border-b border-solid">
     <a href="index.php"><h1 class="text-5xl">Blog</h1></a>
     <div class="flex gap-5">
-        <?php echo $isUserLoggedIn; ?>
+        <?php echo isset($_SESSION['userid']) ?
+        '<a href="logout.php">Logout</a>':
+        '<a href="login.php">Login</a>
+        <a href="register.php">Register</a>';?>
     </div>
 </nav>
-
-<form class="container lg:w-1/2 gap-5 mx-auto mb-10 flex justify-between items-center flex-col lg:flex-row px-5 sm:px-0">
-    <div class=" w-full flex flex-col lg:flex-row gap-5">
+<!--<form class="container lg:w-1/2 gap-5 mx-auto mb-10 flex justify-between items-center flex-col lg:flex-row px-5 sm:px-0">-->
+<!--    <div class=" w-full flex flex-col lg:flex-row gap-5">-->
 <!--        <div>-->
 <!--            <label for="category" class="text-lg block xl:inline">Filter by category:</label>-->
 <!--            <select id="category" class="px-3 py-2 text-lg w-full xl:w-auto">-->
@@ -46,7 +48,7 @@ else {
 <!--                <option>Science and Nature</option>-->
 <!--            </select>-->
 <!--        </div>-->
-
+<!---->
 <!--        <div>-->
 <!--            <label for="sort" class="text-lg block xl:inline">Sort by:</label>-->
 <!--            <select id="sort" class="px-3 py-2 text-lg w-full xl:w-auto">-->
@@ -56,9 +58,9 @@ else {
 <!--                <option>Most Disliked</option>-->
 <!--            </select>-->
 <!--        </div>-->
-    </div>
-    <input class="px-3 py-2 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" type="submit" value="Filter">
-</form>
+<!--    </div>-->
+<!--    <input class="px-3 py-2 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" type="submit" value="Filter">-->
+<!--</form>-->
 
 <section class="container lg:w-1/2 mx-auto flex flex-col gap-5">
 <!--    echo HTML each time go through loop-->
@@ -79,7 +81,7 @@ else {
             </div>
         </article>
     <?php endforeach; }
-    else {echo 'Sorry, no posts found';}
+    else {echo 'Sorry, no posts found.';}
         ?>
 </section>
 </body>

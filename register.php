@@ -37,6 +37,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Call registerUser function
     $result = $userModel->registerUser($username, $email, $password);
+    $user = $userModel->getUserByEmail($email);
+    $_SESSION['userid'] = $user->id;
+    header('Location: index.php');
 
     // Display result
     echo "<p>$result</p>";
