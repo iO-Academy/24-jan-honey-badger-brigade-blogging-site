@@ -36,7 +36,7 @@ $blog = $blogModel->getBlogById($_GET['id'])
             <h2 class="text-4xl"><?php echo $blog->title; ?></h2>
 <!--            <span class="text-xl">100 likes - 50 dislikes</span>-->
         </div>
-        <p class="text-2xl mb-10"><?php echo $blog->postTime . ' - By ' . $blog->id; ?></p>
+        <p class="text-2xl mb-10"><?php echo $blog->postTime . ' - By ' . $blogModel->getAuthorNameByBlogId($blog->id); ?></p>
         <p><?php echo $blog->content ?></p>
 <!--        <div class="flex justify-center gap-5">-->
 <!--            <a class="px-3 py-2 mt-4 text-lg bg-green-300 hover:bg-green-400 hover:text-white transition inline-block rounded-sm" href="#">Like</a>-->

@@ -5,10 +5,10 @@ readonly class Blog {
     public string $title;
     public string $content;
     public string $extract;
-    public int $authorId;
+    public ?int $authorId;
     public string $postTime;
 
-    public function __construct(int $id, string $title, string $content, int $authorId, string $postTime)
+    public function __construct(int $id, string $title, string $content, ?int $authorId, string $postTime)
     {
         $this->id = $id;
         $this->title = $title;
