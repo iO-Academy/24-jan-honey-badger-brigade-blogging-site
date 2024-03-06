@@ -1,11 +1,10 @@
 <?php
     require_once 'src/Models/BlogModel.php';
     require_once 'src/connectToDb.php';
-
+session_start();
     if (!isset($_SESSION['userid'])) {
         header('Location: login.php');
     } else {
-        session_start();
         $authorid = $_SESSION['userid'];
     }
     $db = connectToDb();
