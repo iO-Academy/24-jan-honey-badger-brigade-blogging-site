@@ -4,7 +4,6 @@ require_once 'src/connectToDb.php';
 require_once 'src/Models/BlogModel.php';
 
 session_start();
-var_dump($_SESSION['userid']);
 $db = connectToDb();
 $blogModel = new BlogModel($db);
 $blogs = $blogModel->getAllPosts();

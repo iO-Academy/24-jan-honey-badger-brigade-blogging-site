@@ -4,12 +4,12 @@ require_once 'src/Entities/User.php';
 require_once 'src/connectToDb.php';
 require_once 'src/passwordHint.php';
 $db = connectToDb();
+session_start();
 $userError = '';
 $passwordError = '';
 $emailError = '';
 
 $userModel = new UserModel($db);
-
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -32,17 +32,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Call registerUser function
     $result = $userModel->registerUser($username, $email, $password);
-<<<<<<< HEAD:register.php
     $user = $userModel->getUserByEmail($email);
     $_SESSION['userid'] = $user->id;
     header('Location: index.php');
-
     // Display result
     echo "<p>$result</p>";
-=======
->>>>>>> 36b72bd6ee696bedea95a928605f426a665207a5:Register.php
-}
-
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
