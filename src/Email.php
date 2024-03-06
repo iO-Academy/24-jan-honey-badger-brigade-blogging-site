@@ -18,5 +18,3 @@ readonly class Email
         return $this->email;
     }
 }
-
-$email = new EmailAddress('ashton@test.com');
