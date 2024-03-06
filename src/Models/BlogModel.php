@@ -7,8 +7,6 @@ class BlogModel {
     {
         $this->db = $db;
     }
-<<<<<<< HEAD
-
     public function addBlogPost(int $authorid, string $title, string $content): bool
     {
         $query = $this->db->prepare
