@@ -23,7 +23,7 @@ class BlogModel {
         return $blogposts;
     }
 
-    public function getAuthorNameByBlogId(int $id): array
+    public function getAuthorNameByBlogId(int $id): array | false
     {
         $query = $this->db->prepare(
             'SELECT
@@ -35,7 +35,7 @@ class BlogModel {
         $query->execute([
             ':id' => $id
         ]);
-        return $query->fetch();
+        return $query->fetch() ?? false;
     }
 
     public function getBlogById(int $id): Blog
