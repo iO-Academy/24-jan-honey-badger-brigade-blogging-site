@@ -2,13 +2,16 @@
 require_once 'src/connectToDb.php';
 
 require_once 'src/Models/BlogModel.php';
+require_once 'src/Models/CommentModel.php';
 
 $db = connectToDb();
 $blogModel = new BlogModel($db);
+$commentModel = new CommentModel($db);
+
 
 session_start();
 
-$blog = $blogModel->getBlogById($_GET['id'])
+$blog = $blogModel->getBlogById($_GET['id']);
 ?>
 
 <!DOCTYPE html>
@@ -48,22 +51,10 @@ $blog = $blogModel->getBlogById($_GET['id'])
     </article>
 </section>
 
+
 <?php
 if(isset($_SESSION['userid']))
 {
-    if(isset($_POST['content']))
-    {
-        $content = $_POST['content'];
-        $length = strlen($content);
-        if($length < 10 || $length > 200)
-        {
-            echo "<div style='display: flex; justify-content: center; align-items: center; margin-top: 15px; color: red'><p>Error: Comment must be between 10 and 200 characters.</p></div>";
-        } else
-        {
-            echo "<div style='display: flex; justify-content: center; align-items: center; margin-top: 15px; color: green'><p>Comment added successfully!</p></div>";
-        }
-    }
-
     ?>
     <section class="container md:w-1/2 mx-auto mt-5">
         <form class="p-8 border border-solid rounded-md bg-slate-200" method="post">
@@ -71,11 +62,29 @@ if(isset($_SESSION['userid']))
                 <label class="mb-3 block" for="content">Comment:</label>
                 <textarea class="w-full" id="content" name="content" rows="5"></textarea>
             </div>
-
+            <?php
+            if(isset($_POST['content']))
+            {
+                // inputed special characters won't be interpreted as HTML tags/entities.
+                $content = htmlspecialchars($_POST['content'], ENT_QUOTES, 'UTF-8');
+                $length = strlen($content);
+                if($length < 10 || $length > 200)
+                {
+                    echo "<div style='display: flex; align-items: center; margin-top: -5px; color: red'><p>Comment must be between 10 and 200 characters.</p></div>";
+                } else
+                {
+                    $authorid = $_SESSION['userid'];
+                    $blogid = $_GET['id'];
+                    $timestamp = date('Y-m-d H:i:s');
+                    $commentModel->addComment($authorid, $blogid , $content, $timestamp);
+                    echo "<div style='display: flex; align-items: center; margin-top: -5px; color: green'><p>Comment added successfully!</p></div>";
+                }
+            }
+            ?>
             <input class="px-3 py-2 mt-4 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" type="submit" value="Post Comment" />
         </form>
     </section>
-<?php
+    <?php
 }
 ?>
 
