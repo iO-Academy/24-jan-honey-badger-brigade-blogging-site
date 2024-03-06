@@ -37,7 +37,18 @@ class LikeModel
         WHERE `id` = :id');
         return $query->execute([
             ':value' => $value,
-            ':id' => $like['id']
+            ':id' =>$like->id
+        ]);
+    }
+
+    public function addLike(int $userid, int $blogid, bool $value): bool
+    {
+        $query = $this->db->prepare('INSERT INTO `likes` (`userid`, `blogid`, `value`) 
+        VALUES (:userid, :blogid, :value)');
+        return $query->execute([
+            ':userid' => $userid,
+            ':blogid' => $blogid,
+            ':value' => (bool)$value,
         ]);
     }
 

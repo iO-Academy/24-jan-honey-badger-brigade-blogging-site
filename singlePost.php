@@ -1,16 +1,39 @@
 <?php
 require_once 'src/connectToDb.php';
 require_once 'src/Models/BlogModel.php';
+require_once 'src/Models/LikeModel.php';
 
 session_start();
 $db = connectToDb();
 $blogModel = new BlogModel($db);
 $blog = $blogModel->getBlogById($_GET['id']);
-if (!isset($_SESSION['userid']))
+$likes = new LikeModel($db);
+
+//if (!isset($_SESSION['userid']))
 
 if (isset($_GET['click'])){
+    if ($_GET['click']==="Like") {
+        $value = true;
+    } else
+    {
+        $value = false;
+    }
+    $userClick = $likes->checkUserPostLikes($_SESSION['userid'], $_GET['id']);
+    if ($userClick===false)
+    {
+        var_dump($value);
+        $likes->addLike($_SESSION['userid'], $_GET['id'], $value);
+    } else
+    {
+        var_dump($value);
+        $likes->updateUserPostLike($userClick, $value);
+    }
+
+    var_dump($likes->checkUserPostLikes($_SESSION['userid'], $_GET['id']));
+    var_dump($_GET['click']);
+    var_dump($value);
     // check for existing vote
-    //update as needed
+
 }
 ?>
 
