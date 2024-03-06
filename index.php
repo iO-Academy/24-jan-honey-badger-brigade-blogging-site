@@ -22,14 +22,13 @@ $blogs = $blogModel->getAllPosts();
     <a href="index.php"><h1 class="text-5xl">Blog</h1></a>
     <div class="flex gap-5">
         <?php echo isset($_SESSION['userid']) ?
-        '<a href="logout.php">Logout</a>':
-        '<a href="login.php">Login</a>
-        <a href="register.php">Register</a>';?>
+        '<a href="addPost.php">Create Post</a><a href="logout.php">Logout</a>':
+        '<a href="login.php">Login</a>'; ?>
     </div>
 </nav>
 
 <section class="container lg:w-1/2 mx-auto flex flex-col gap-5">
-<!--    echo HTML each time go through loop-->
+
     <?php
     if (count($blogs) > 0) {
     foreach ($blogs as $blogpost): ?>
@@ -37,7 +36,7 @@ $blogs = $blogModel->getAllPosts();
             <div class="flex justify-between items-center flex-col md:flex-row mb-4">
                 <h2 class="text-4xl"><?php echo $blogpost->title; ?></h2>
             </div>
-            <p class="text-2xl mb-2"><?php echo $blogpost->postTime . ' - By ' . $blogpost->id; ?></p>
+            <p class="text-2xl mb-2"><?php echo $blogpost->postTime . ' - By ' . $blogpost->authorId; ?></p>
             <p class="text-2xl mb-2"><?php echo $blogpost->extract ?></p>
             <div class="flex justify-center">
 
