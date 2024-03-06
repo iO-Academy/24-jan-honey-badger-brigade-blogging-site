@@ -23,6 +23,21 @@ class BlogModel {
         return $blogposts;
     }
 
+    public function getAuthorNameByBlogId(int $id): array
+    {
+        $query = $this->db->prepare(
+            'SELECT
+	        `users`.`username`
+            FROM `blogposts`
+            INNER JOIN `users`
+	            ON `blogposts`.`authorid` = `users`.`id`
+	            WHERE `blogposts`.`id` = :id');
+        $query->execute([
+            ':id' => $id
+        ]);
+        return $query->fetch();
+    }
+
     public function getBlogById(int $id): Blog
     {
         $query = $this->db->prepare('SELECT `id`, `title`, `content`, `authorid`, `posttime` FROM `blogposts` WHERE `id` = :id');
