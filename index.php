@@ -7,6 +7,7 @@ session_start();
 $db = connectToDb();
 $blogModel = new BlogModel($db);
 $blogs = $blogModel->getAllPosts();
+
 ?>
 
 <!DOCTYPE html>
@@ -32,14 +33,15 @@ $blogs = $blogModel->getAllPosts();
     if (count($blogs) > 0) {
     foreach ($blogs as $blogpost): ?>
         <article class="p-8 border border-solid rounded-md">
-           <div class="flex justify-between items-center flex-col md:flex-row mb-4">
+            <div class="flex justify-between items-center flex-col md:flex-row mb-4">
                 <h2 class="text-4xl"><?php echo $blogpost->title; ?></h2>
-                <!-- <span class="text-xl">100 likes - 50 dislikes</span> -->
             </div>
             <p class="text-2xl mb-2"><?php echo $blogpost->postTime . ' - By ' . $blogpost->authorId; ?></p>
             <p class="text-2xl mb-2"><?php echo $blogpost->extract ?></p>
             <div class="flex justify-center">
-<!--                <a class="px-3 py-2 mt-4 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" href="singlePost.php?id=--><?php //echo $blogpost->id; ?><!--">View post</a>-->
+
+            <a class="px-3 py-2 mt-4 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" href="singlePost.php?id=<?php echo $blogpost->id?>">View post</a>
+
             </div>
         </article>
     <?php endforeach; }
