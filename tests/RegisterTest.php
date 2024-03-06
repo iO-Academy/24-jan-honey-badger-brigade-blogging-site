@@ -12,4 +12,11 @@ class RegisterTest extends TestCase
         $actual = passwordHint('test');
         $this->assertEquals($actual, $expected);
     }
+
+    public function test_passwordHintSuccess()
+    {
+        $expected = '';
+        $actual = passwordHint('testtest');
+        $this->assertEquals($actual, $expected);
+    }
 }

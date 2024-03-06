@@ -10,26 +10,29 @@ class UserModel
         $this->db = $db;
     }
 
-    public function registerUser($username, $email, $password)
+    public function registerUser( string $username,  Email $email, string $password)
     {
-        $pdo = $this->db;
         //hash the password that was provided
-        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $query = $pdo->prepare('INSERT INTO `users` (`username`, `email`, `password`) VALUES(:username, :email, :hashedPassword)');
+        $query = $this->db->prepare('INSERT INTO `users` (`username`, `email`, `password`) VALUES(:username, :email, :hashedPassword)');
 
         // Execute the query
-        $query->execute([
+        $results = $query->execute([
             ':username' => $username,
             ':email' => $email,
             ':hashedPassword' => $hashedPassword,
         ]);
+        if (!$results){
+            throw new Exception('Error: Failed to register user, please try again');
+        } else {
+            return $results;
+        }
     }
-    public function usernameExists($username): bool
+    public function usernameExists(string $username): bool
     {
-        $pdo = $this->db;
         // Prepare SQL statement we are going to need
-        $queryUsername = $pdo->prepare('SELECT `username` FROM `users` WHERE `username` = :username');
+        $queryUsername = $this->db->prepare('SELECT `username` FROM `users` WHERE `username` = :username');
         //check if username already exists in the db
         $queryUsername->execute([':username' => $username]);
         $user = $queryUsername->fetch(PDO::FETCH_ASSOC);

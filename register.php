@@ -12,32 +12,29 @@ $emailError = '';
 $userModel = new UserModel($db);
 
 // Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if(!empty($_POST['submit'])) {
     // Get form data
     $username = $_POST["username"];
     $email = $_POST["email"];
     $password = $_POST["password"];
 
+    $newEmail = new Email($email);
+
     if ($userModel->usernameExists($username)) {
-        $userError = 'This user already exists';
-    };
+        $userError = 'Sorry this is not a valid username';
+    } else { $userError = '';}
 
     if (isset($_POST["password"])) {
-        $password = $_POST["password"];
         $passwordError = passwordHint($password);
     }
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $emailError = 'Invalid email format';
-    }
 
-    // Call registerUser function
-    $result = $userModel->registerUser($username, $email, $password);
-    $user = $userModel->getUserByEmail($email);
-    $_SESSION['userid'] = $user->id;
-    header('Location: index.php');
-    // Display result
-    echo "<p>$result</p>";
+    if (empty($userError) && empty($passwordError) && empty($emailError)) {
+        $result = $userModel->registerUser($username, $newEmail, $password);
+        $user = $userModel->getUserByEmail($email);
+        $_SESSION['userid'] = $user->id;
+        header('Location: index.php');
     }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     </div>
 
-    <input class="px-3 py-2 mt-4 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" type="submit" value="Register" />
+    <input class="px-3 py-2 mt-4 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" type="submit" name="submit" value="Register" />
 </form>
 
 </body>
