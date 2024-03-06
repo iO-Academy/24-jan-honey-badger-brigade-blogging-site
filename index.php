@@ -2,16 +2,11 @@
 
 require_once 'src/connectToDb.php';
 require_once 'src/Models/BlogModel.php';
-require_once 'src/Models/LikeModel.php';
-
 
 session_start();
 $db = connectToDb();
 $blogModel = new BlogModel($db);
-$likeModel = new LikeModel($db);
 $blogs = $blogModel->getAllPosts();
-$likes = $likeModel->countAllLikes(2);
-var_dump($likes);
 ?>
 
 <!DOCTYPE html>
@@ -71,7 +66,7 @@ var_dump($likes);
             <p class="text-2xl mb-2"><?php echo $blogpost->postTime . ' - By ' . $blogpost->id; ?></p>
             <p class="text-2xl mb-2"><?php echo $blogpost->extract ?></p>
             <div class="flex justify-center">
-                <a class="px-3 py-2 mt-4 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" href="singlePost.php?id=<?php echo $blogpost->id; ?>">View post</a>
+                <a class="px-3 py-2 mt-4 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" href="singlePost.php?id=<?php echo $blogpost->id?>">View post</a>
             </div>
         </article>
     <?php endforeach; }
