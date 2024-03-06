@@ -13,7 +13,6 @@ if (isset($_SESSION['userid'])){
 }
 else {
     $isUserLoggedIn = '<a href="login.php">Login</a> <a href="register.php">Register</a>';
-//  $isUserLoggedIn = '<a href="#">Create Post</a>';
 }
 ?>
 
