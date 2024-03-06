@@ -15,7 +15,6 @@ class BlogModel {
         $query = $this->db->prepare('SELECT `id`, `title`, `content`, `authorid`, `posttime`  FROM `blogposts` ORDER BY `posttime` DESC;');
         $query ->execute();
         $blog = $query->fetchAll();
-
         $blogposts = [];
         foreach ($blog as $post)
         {
