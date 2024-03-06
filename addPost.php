@@ -21,9 +21,8 @@
     $contentCheck=false;
 
     function cleanUpInput($data) {
-    $data = trim($data);
-    $data = htmlspecialchars($data);
-    return $data;
+        $data = trim($data);
+        return htmlspecialchars($data);
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
