@@ -38,8 +38,9 @@ class BlogModel {
         $data = $query->fetch();
         if ($data['username'] == null) {
             return 'Anonymous';
-        } else return $data['username'];
-
+        } else {
+            return $data['username'];
+        }
     }
 
     public function getBlogById(int $id): Blog
