@@ -18,7 +18,11 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['e
     $email = $_POST["email"];
     $password = $_POST["password"];
 
-    $newEmail = new Email($email);
+    try {
+        $newEmail = new Email($email);
+    } catch(Exception $e) {
+        $emailError = $e->getMessage();
+    }
 
     if ($userModel->usernameExists($username)) {
         $userError = 'Sorry this is not a valid username';
