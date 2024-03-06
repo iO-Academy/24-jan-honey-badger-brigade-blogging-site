@@ -63,6 +63,7 @@ if(isset($_SESSION['userid']))
             echo "<div style='display: flex; justify-content: center; align-items: center; margin-top: 15px; color: green'><p>Comment added successfully!</p></div>";
         }
     }
+
     ?>
     <section class="container md:w-1/2 mx-auto mt-5">
         <form class="p-8 border border-solid rounded-md bg-slate-200" method="post">
