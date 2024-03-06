@@ -7,6 +7,7 @@ session_start();
 $db = connectToDb();
 $blogModel = new BlogModel($db);
 $blogs = $blogModel->getAllPosts();
+
 ?>
 
 <!DOCTYPE html>
@@ -21,13 +22,13 @@ $blogs = $blogModel->getAllPosts();
     <a href="index.php"><h1 class="text-5xl">Blog</h1></a>
     <div class="flex gap-5">
         <?php echo isset($_SESSION['userid']) ?
-        '<a href="logout.php">Logout</a>':
-        '<a href="login.php">Login</a><a href="register.php">Register</a>'; ?>
+        '<a href="addPost.php">Create Post</a><a href="logout.php">Logout</a>':
+        '<a href="login.php">Login</a>'; ?>
     </div>
 </nav>
 
 <section class="container lg:w-1/2 mx-auto flex flex-col gap-5">
-<!--    echo HTML each time go through loop-->
+
     <?php
     if (count($blogs) > 0) {
     foreach ($blogs as $blogpost): ?>

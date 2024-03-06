@@ -7,6 +7,18 @@ class BlogModel {
     {
         $this->db = $db;
     }
+    public function addBlogPost(int $authorid, string $title, string $content): bool
+    {
+        $query = $this->db->prepare
+        ('INSERT INTO `blogposts` (`authorid`, `title`, `content`, `posttime`)
+        VALUES (:authorid, :title, :content, :posttime)');
+        return $query->execute([
+            ':authorid' => $authorid,
+            ':title' => $title,
+            ':content' => $content,
+            ':posttime' => date("y-m-d h:i:s")
+        ]);
+    }
     /**
      * @return Blog[];
      */
@@ -22,6 +34,7 @@ class BlogModel {
         }
         return $blogposts;
     }
+
     public function getAuthorNameByBlogId(int $id): string | null
     {
         $query = $this->db->prepare(
@@ -41,6 +54,7 @@ class BlogModel {
             return $data['username'];
         }
     }
+  
     public function getBlogById(int $id): Blog
     {
         $query = $this->db->prepare('SELECT `id`, `title`, `content`, `authorid`, `posttime` FROM `blogposts` WHERE `id` = :id');
@@ -50,8 +64,10 @@ class BlogModel {
         $data = $query->fetch();
         return $this->hydrateSingleBlog($data);
     }
+
     public function hydrateSingleBlog(array $data): Blog
     {
         return new Blog($data['id'], $data['title'], $data['content'], $data['authorid'], $data['posttime']);
     }
 }
+
