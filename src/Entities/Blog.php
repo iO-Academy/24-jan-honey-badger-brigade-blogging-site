@@ -1,5 +1,4 @@
 <?php
-
 readonly class Blog {
     public int $id;
     public string $title;
@@ -7,7 +6,6 @@ readonly class Blog {
     public string $extract;
     public ?int $authorId;
     public string $postTime;
-
     public function __construct(int $id, string $title, string $content, ?int $authorId, string $postTime)
     {
         $this->id = $id;
@@ -17,5 +15,4 @@ readonly class Blog {
         $this->authorId = $authorId;
         $this->postTime = gmdate("d/m/y", strtotime($postTime));
     }
-
 }

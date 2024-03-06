@@ -22,7 +22,6 @@ class BlogModel {
         }
         return $blogposts;
     }
-
     public function getAuthorNameByBlogId(int $id): string | null
     {
         $query = $this->db->prepare(
@@ -42,7 +41,6 @@ class BlogModel {
             return $data['username'];
         }
     }
-
     public function getBlogById(int $id): Blog
     {
         $query = $this->db->prepare('SELECT `id`, `title`, `content`, `authorid`, `posttime` FROM `blogposts` WHERE `id` = :id');
@@ -52,7 +50,6 @@ class BlogModel {
         $data = $query->fetch();
         return $this->hydrateSingleBlog($data);
     }
-
     public function hydrateSingleBlog(array $data): Blog
     {
         return new Blog($data['id'], $data['title'], $data['content'], $data['authorid'], $data['posttime']);
