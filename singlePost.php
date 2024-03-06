@@ -48,17 +48,35 @@ $blog = $blogModel->getBlogById($_GET['id'])
     </article>
 </section>
 
-<?php echo isset($_SESSION['userid']) ?
-    '<section class="container md:w-1/2 mx-auto mt-5">
-    <form class="p-8 border border-solid rounded-md bg-slate-200">
-        <div class="mb-5">
-            <label class="mb-3 block" for="content">Comment:</label>
-            <textarea class="w-full" id="content" rows="5"></textarea>
-        </div>
+<?php
+if(isset($_SESSION['userid']))
+{
+    if(isset($_POST['content']))
+    {
+        $content = $_POST['content'];
+        $length = strlen($content);
+        if($length < 10 || $length > 200)
+        {
+            echo "<div style='display: flex; justify-content: center; align-items: center; margin-top: 15px; color: red'><p>Error: Comment must be between 10 and 200 characters.</p></div>";
+        } else
+        {
+            echo "<div style='display: flex; justify-content: center; align-items: center; margin-top: 15px; color: green'><p>Comment added successfully!</p></div>";
+        }
+    }
+    ?>
+    <section class="container md:w-1/2 mx-auto mt-5">
+        <form class="p-8 border border-solid rounded-md bg-slate-200" method="post">
+            <div class="mb-5">
+                <label class="mb-3 block" for="content">Comment:</label>
+                <textarea class="w-full" id="content" name="content" rows="5"></textarea>
+            </div>
 
-        <input class="px-3 py-2 mt-4 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" type="submit" value="Post Comment" />
-    </form>
-</section>': NULL ?>
+            <input class="px-3 py-2 mt-4 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" type="submit" value="Post Comment" />
+        </form>
+    </section>
+<?php
+}
+?>
 
 <section class="container md:w-1/2 mx-auto mt-5 mb-10">
     <div class="p-8 border border-solid rounded-md bg-slate-200">
@@ -69,5 +87,3 @@ $blog = $blogModel->getBlogById($_GET['id'])
 
 </body>
 </html>
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim placeat similique veritatis voluptas! Ad amet at corporis eius illo in ipsam labore maxime numquam, odit, praesentium quidem sed tempore voluptatem.
