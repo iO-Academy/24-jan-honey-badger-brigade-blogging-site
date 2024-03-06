@@ -6,7 +6,6 @@ require_once 'addPost.php';
 
 class AddPostTest extends TestCase
 {
-
     public function test_cleanUpInput()
     {
         $expected = "Heloo jffsjflsjefjseflsj isdskfeksfksefksvcxfvdxvx";
@@ -15,5 +14,4 @@ class AddPostTest extends TestCase
 
         $this->assertEquals($expected, $actual);
     }
-
 }
