@@ -1,9 +1,8 @@
 <?php
 
-namespace tests;
 require_once 'src/Entities/Blog.php';
 
-use Blog;
+
 use PHPUnit\Framework\TestCase;
 
 class BlogTest extends TestCase

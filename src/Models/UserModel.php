@@ -9,7 +9,39 @@ class UserModel
     {
         $this->db = $db;
     }
-    public function getUserByEmail(string $email): User | false
+    public function registerUser( string $username,  Email $email, string $password) : array | bool
+    {
+        //hash the password that was provided
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $query = $this->db->prepare('INSERT INTO `users` (`username`, `email`, `password`) VALUES(:username, :email, :hashedPassword)');
+
+        // Execute the query
+        $results = $query->execute([
+            ':username' => $username,
+            ':email' => $email,
+            ':hashedPassword' => $hashedPassword,
+        ]);
+        if (!$results){
+            throw new Exception('Error: Failed to register user');
+        } else {
+            return $results;
+        }
+    }
+    public function usernameExists(string $username): bool
+    {
+        // Prepare SQL statement we are going to need
+        $queryUsername = $this->db->prepare('SELECT `username` FROM `users` WHERE `username` = :username');
+        //check if username already exists in the db
+        $queryUsername->execute([':username' => $username]);
+        $user = $queryUsername->fetch(PDO::FETCH_ASSOC);
+        if (!$user) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+     public function getUserByEmail(string $email): User | false
     {
       $query = $this->db->prepare('SELECT `id`, `username`, `email`, `password` FROM `users` WHERE `email`= :email');
       $query->execute([
@@ -27,4 +59,7 @@ class UserModel
             return false;
         }
     }
+
 }
+
+
