@@ -9,8 +9,7 @@ class UserModel
     {
         $this->db = $db;
     }
-
-    public function registerUser( string $username,  Email $email, string $password)
+    public function registerUser( string $username,  Email $email, string $password) : array | bool
     {
         //hash the password that was provided
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -24,7 +23,7 @@ class UserModel
             ':hashedPassword' => $hashedPassword,
         ]);
         if (!$results){
-            throw new Exception('Error: Failed to register user, please try again');
+            throw new Exception('Error: Failed to register user');
         } else {
             return $results;
         }

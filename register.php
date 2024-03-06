@@ -12,7 +12,7 @@ $emailError = '';
 $userModel = new UserModel($db);
 
 // Check if the form is submitted
-if(!empty($_POST['submit'])) {
+if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['email'])) {
     // Get form data
     $username = $_POST["username"];
     $email = $_POST["email"];
@@ -24,9 +24,7 @@ if(!empty($_POST['submit'])) {
         $userError = 'Sorry this is not a valid username';
     } else { $userError = '';}
 
-    if (isset($_POST["password"])) {
-        $passwordError = passwordHint($password);
-    }
+    $passwordError = passwordHint($password);
 
     if (empty($userError) && empty($passwordError) && empty($emailError)) {
         $result = $userModel->registerUser($username, $newEmail, $password);
