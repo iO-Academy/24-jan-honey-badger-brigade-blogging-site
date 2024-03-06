@@ -15,7 +15,7 @@ $blog = $blogModel->getBlogById($_GET['id'])
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Blog - Example Title</title>
+    <title>Blog - <?php echo $blog->title; ?></title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="selection:bg-teal-200">
