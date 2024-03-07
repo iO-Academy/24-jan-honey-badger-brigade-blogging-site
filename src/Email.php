@@ -1,5 +1,4 @@
 <?php
-
 readonly class Email
 {
     public string $email;
