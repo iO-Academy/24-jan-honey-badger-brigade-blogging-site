@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 11.2.3-MariaDB-1:11.2.3+maria~ubu2204)
 # Database: honeybadgerblog
-# Generation Time: 2024-03-07 14:40:51 +0000
+# Generation Time: 2024-03-07 16:54:26 +0000
 # ************************************************************
 
 
@@ -42,7 +42,9 @@ VALUES
 	(1,'The One Habit Doctors Won\'t Tell You','Blog post 1 is some health grifting. Don\'t click!! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et sollicitudin orci. Morbi eu metus pellentesque, fermentum quam in, vestibulum tellus. Sed dapibus libero eget tincidunt imperdiet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc ultrices sapien ac metus consectetur, eu dignissim ligula pellentesque. Donec at est nibh. Proin et nibh blandit neque aliquam volutpat quis quis ligula. Proin finibus posuere purus, vitae faucibus justo lobortis in. Maecenas sed suscipit orci.\n\n',1,'2024-03-04 10:11:03'),
 	(2,'28 Facts You Didn\'t Know About The Marvel Universe','Blog post 2 is about entertainment. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et sollicitudin orci. Morbi eu metus pellentesque, fermentum quam in, vestibulum tellus. Sed dapibus libero eget tincidunt imperdiet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc ultrices sapien ac metus consectetur, eu dignissim ligula pellentesque. Donec at est nibh. Proin et nibh blandit neque aliquam volutpat quis quis ligula. Proin finibus posuere purus, vitae faucibus justo lobortis in. Maecenas sed suscipit orci.\n\nC',1,'2024-03-04 10:20:39'),
 	(3,'He\'s a 10 but He Ordered Lemon & Herb Nandos...','Blog post 3 is about dating. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et sollicitudin orci. Morbi eu metus pellentesque, fermentum quam in, vestibulum tellus. Sed dapibus libero eget tincidunt imperdiet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc ultrices sapien ac metus consectetur, eu dignissim ligula pellentesque. Donec at est nibh. Proin et nibh blandit neque aliquam volutpat quis quis ligula. Proin finibus posuere purus, vitae faucibus justo lobortis in. Maecenas sed suscipit orci.\n\n',2,'2024-03-04 10:23:52'),
-	(4,'Jar Jar Binks or Legolas? Who is Worse?','Blog 4 is about nerdy movies. Lorem Ipsum Cras tempor erat eros, at aliquet massa ultricies in. Morbi fringilla urna vel turpis pulvinar varius. Aliquam erat volutpat. Integer iaculis diam mi, sed aliquam augue maximus pharetra. Nulla congue id leo pellentesque fermentum. Ut semper iaculis arcu, ut condimentum odio consectetur sit amet. Etiam finibus augue non convallis blandit. Donec tempor ligula diam, non egestas ex fermentum sit amet. Vestibulum consequat turpis et nisi blandit tincidunt. Nulla quis nulla sit amet orci blandit semper nec hendrerit purus. Vivamus at enim tortor.',0,'2024-03-07 14:40:32');
+	(4,'Jar Jar Binks or Legolas? Who is Worse?','Blog 4 is about nerdy movies. Lorem Ipsum Cras tempor erat eros, at aliquet massa ultricies in. Morbi fringilla urna vel turpis pulvinar varius. Aliquam erat volutpat. Integer iaculis diam mi, sed aliquam augue maximus pharetra. Nulla congue id leo pellentesque fermentum. Ut semper iaculis arcu, ut condimentum odio consectetur sit amet. Etiam finibus augue non convallis blandit. Donec tempor ligula diam, non egestas ex fermentum sit amet. Vestibulum consequat turpis et nisi blandit tincidunt. Nulla quis nulla sit amet orci blandit semper nec hendrerit purus. Vivamus at enim tortor.',0,'2024-03-07 14:40:32'),
+	(5,'qdfqedqewf','rfwefwe',2,'2024-03-07 04:31:15'),
+	(6,'rwfwrefwefwe','wefwefwefwergwrgwrgt34g3g34g34g24g24g24gtf243g234tf24g243ft',2,'2024-03-07 04:37:53');
 
 /*!40000 ALTER TABLE `blogposts` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -70,7 +72,9 @@ VALUES
 	(1,1,1,'Thank you for sharing this insightful post! I particularly enjoyed how you explained the concept of [specific topic]. It clarified a lot of my doubts.','2024-03-05 16:34:30'),
 	(2,2,3,'Great read! I found your perspective on [specific topic] very thought-provoking. It’s interesting to consider this from a different angle.','2024-03-05 16:35:58'),
 	(3,1,2,'This was a very informative article. The way you presented the information made it easy to understand and follow. Looking forward to more posts on similar topics.','2024-03-05 16:36:12'),
-	(4,2,1,'Another fab post! Love it!','2024-03-07 14:38:10');
+	(4,2,1,'Another fab post! Love it!','2024-03-07 14:38:10'),
+	(5,1,1,'Brenda you love all my work\r\n','2024-03-07 15:55:16'),
+	(6,1,5,'This is shite Brenda','2024-03-07 16:51:29');
 
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -99,7 +103,7 @@ VALUES
 	(3,1,3,0),
 	(4,1,4,1),
 	(5,1,5,0),
-	(6,2,1,1),
+	(6,2,1,0),
 	(7,2,2,0),
 	(8,0,1,1),
 	(9,0,1,1),
@@ -134,7 +138,9 @@ VALUES
 	(38,2,8,1),
 	(39,2,7,1),
 	(40,2,9,1),
-	(41,2,6,1);
+	(41,2,6,1),
+	(42,2,4,0),
+	(43,2,5,0);
 
 /*!40000 ALTER TABLE `likes` ENABLE KEYS */;
 UNLOCK TABLES;

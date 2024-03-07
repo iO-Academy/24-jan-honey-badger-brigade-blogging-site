@@ -32,6 +32,7 @@ $blogs = $blogModel->getAllPosts();
     <?php
     foreach ($blogs as $blogpost): ?>
         <article class="p-8 border border-solid rounded-md">
+        <?php echo $blogpost->controversial ? '<span class="px-3 py-2 bg bg-rose-600 inline-block mb-4 rounded-sm">Controversial</span>':'' ;?>
             <div class="flex justify-between items-center flex-col md:flex-row mb-4">
                 <h2 class="text-4xl"><?php echo $blogpost->title; ?></h2>
                 <span class="text-xl"><?php echo $blogpost->likes . ' Likes - ' . $blogpost->dislikes . ' Dislikes' ?></span>

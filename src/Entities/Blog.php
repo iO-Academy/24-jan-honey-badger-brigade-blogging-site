@@ -10,9 +10,7 @@ readonly class Blog
     public string $postTime;
     public int $likes;
     public int $dislikes;
-
-
-
+    public bool $controversial;
     public function __construct(int $id, string $title, string $content, ?int $authorId, string $username, string $postTime, int|null $likes, int|null $dislikes)
 
     {
@@ -25,6 +23,7 @@ readonly class Blog
         $this->postTime = gmdate("d/m/y", strtotime($postTime));
         $this->likes = $likes ?: 0;
         $this->dislikes = $dislikes ?: 0;
+        ($this->likes*1.5)<$this->dislikes ? $this->controversial=true : $this->controversial=false;
     }
 }
 
