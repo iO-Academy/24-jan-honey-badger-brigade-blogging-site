@@ -22,20 +22,29 @@ class CommentModel
             'timestamp'=> $timeStamp
         ]);
     }
-
-    public function getAllComments(): Comment
+    /**
+     * @return Comment[];
+     */
+    public function getAllComments(int $id): array | false
     {
         $query = $this->db->prepare('SELECT `comments`.`id`, `comments`.`authorid`, `comments`.`blogid`, 
        `comments`.`content`, `comments`.`timestamp`  FROM `comments` INNER JOIN `users` 
-        ON `comments` . `authorid` = `users` . `id` ORDER BY `timestamp` DESC;');
-        $query ->execute();
+        ON `comments` . `authorid` = `users` . `id` WHERE `comments` . `blogid` = :id ORDER BY `timestamp` DESC;');
+        $query ->execute([':id'=>$id]);
         $data = $query->fetchAll();
         return $this->hydrateComments($data);
     }
-
-    public function hydrateComments(array $data): Comment
+    /**
+     * @return Comment[];
+     */
+    public function hydrateComments(array $data): array | false
     {
-        return new Comment($data['id'], $data['authorid'],
-        $data['blogid'], $data['content'], $data['timestamp']);
+        $comments = [];
+        foreach ($data as $comment)
+        {
+        $comments[] =  new Comment($comment['id'], $comment['authorid'],
+        $comment['blogid'], $comment['content'], $comment['timestamp']);
+        }
+        return $comments;
     }
 }

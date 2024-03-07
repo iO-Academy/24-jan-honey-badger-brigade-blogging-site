@@ -4,14 +4,15 @@ require_once 'src/connectToDb.php';
 require_once 'src/Models/BlogModel.php';
 require_once 'src/Models/CommentModel.php';
 
+session_start();
 $db = connectToDb();
 $blogModel = new BlogModel($db);
 $commentModel = new CommentModel($db);
-
-
-session_start();
+$comments = $commentModel->getAllComments($_GET['id']);
+var_dump($comments);
 
 $blog = $blogModel->getBlogById($_GET['id']);
+
 ?>
 
 <!DOCTYPE html>
