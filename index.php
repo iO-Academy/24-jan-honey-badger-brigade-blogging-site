@@ -23,7 +23,7 @@ $blogs = $blogModel->getAllPosts();
     <div class="flex gap-5">
         <?php echo isset($_SESSION['userid']) ?
         '<a href="addPost.php">Create Post</a><a href="logout.php">Logout</a>':
-        '<a href="login.php">Login</a>'; ?>
+        '<a href="login.php">Login</a><a href="register.php">Register</a>'; ?>
     </div>
 </nav>
 
