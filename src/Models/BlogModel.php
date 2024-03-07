@@ -52,7 +52,7 @@ class BlogModel
        `blogposts`.`posttime`, 
        `users`.`username` 
         FROM `blogposts` 
-        INNER JOIN `users`
+        LEFT JOIN `users`
         ON `blogposts`.`authorid` = `users`.`id` 
         WHERE `blogposts`.`id` = :id');
         $query->execute([

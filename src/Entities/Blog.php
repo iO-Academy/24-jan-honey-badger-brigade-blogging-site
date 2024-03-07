@@ -19,16 +19,6 @@ readonly class Blog
         $this->username = $username;
         $this->postTime = gmdate("d/m/y", strtotime($postTime));
     }
-
-    public function getUsername(): string
-    {
-        if ($this->username == null) {
-            return 'Anonymous';
-        } else {
-            return $this->username;
-        }
-
-    }
 }
 
 
