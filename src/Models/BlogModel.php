@@ -64,20 +64,16 @@ class BlogModel
 
     public function hydrateSingleBlog(array $data): Blog
     {
-        if ($data['username'] == null) {
-            return new Blog($data['id'], $data['title'], $data['content'], $data['authorid'], 'Anonymous', $data['posttime']);
-        } else {
-            return new Blog($data['id'], $data['title'], $data['content'], $data['authorid'], $data['username'], $data['posttime']);
-        }
+        $username = $data['username'] ?: 'Anonymous';
+        return new Blog($data['id'], $data['title'], $data['content'], $data['authorid'], $username, $data['posttime']);
     }
     public function hydrateAllBlogs(array $data): array
-        {
-            $blogs = [];
-            foreach ($data as $blog) {
-                $blogs[] = $this->hydrateSingleBlog($blog);
-            }
-            return $blogs;
-        }
+    {
+        $blogs = [];
+        foreach ($data as $blog) {
+            $blogs[] = $this->hydrateSingleBlog($blog);
+        } return $blogs;
+    }
 }
 
 
