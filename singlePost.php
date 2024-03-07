@@ -1,14 +1,17 @@
 <?php
 require_once 'src/connectToDb.php';
-
 require_once 'src/Models/BlogModel.php';
 
+session_start();
 $db = connectToDb();
 $blogModel = new BlogModel($db);
+$blog = $blogModel->getBlogById($_GET['id']);
+if (!isset($_SESSION['userid']))
 
-session_start();
-
-$blog = $blogModel->getBlogById($_GET['id'])
+if (isset($_GET['click'])){
+    // check for existing vote
+    //update as needed
+}
 ?>
 
 <!DOCTYPE html>
@@ -38,10 +41,10 @@ $blog = $blogModel->getBlogById($_GET['id'])
         </div>
         <p class="text-2xl mb-10"><?php echo $blog->postTime . ' - By ' . $blog->id; ?></p>
         <p><?php echo $blog->content ?></p>
-<!--        <div class="flex justify-center gap-5">-->
-<!--            <a class="px-3 py-2 mt-4 text-lg bg-green-300 hover:bg-green-400 hover:text-white transition inline-block rounded-sm" href="#">Like</a>-->
-<!--            <a class="px-3 py-2 mt-4 text-lg bg-red-300 hover:bg-red-400 hover:text-white transition inline-block rounded-sm" href="#">Dislike</a>-->
-<!--        </div>-->
+        <div class="flex justify-center gap-5">
+            <a class="px-3 py-2 mt-4 text-lg bg-green-300 hover:bg-green-400 hover:text-white transition inline-block rounded-sm" href="<?php echo isset($_SESSION['userid']) ? '?id=' . $_GET['id'] . '&click=Like' : 'login.php'; ?>">Like</a>
+            <a class="px-3 py-2 mt-4 text-lg bg-red-300 hover:bg-red-400 hover:text-white transition inline-block rounded-sm" href="<?php echo isset($_SESSION['userid']) ? '?id=' . $_GET['id'] . '&click=Dislike' : 'login.php'; ?>">Dislike</a>
+        </div>
         <div class="flex justify-center">
             <a class="px-3 py-2 mt-4 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" href="index.php">View all posts</a>
         </div>
@@ -69,5 +72,3 @@ $blog = $blogModel->getBlogById($_GET['id'])
 
 </body>
 </html>
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim placeat similique veritatis voluptas! Ad amet at corporis eius illo in ipsam labore maxime numquam, odit, praesentium quidem sed tempore voluptatem.
