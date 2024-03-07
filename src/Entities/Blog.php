@@ -7,8 +7,11 @@ readonly class Blog {
     public string $extract;
     public int $authorId;
     public string $postTime;
+    public int|null $likes;
+    public int|null $dislikes;
 
-    public function __construct(int $id, string $title, string $content, int $authorId, string $postTime)
+
+    public function __construct(int $id, string $title, string $content, int $authorId, string $postTime, int|null $likes, int|null $dislikes)
     {
         $this->id = $id;
         $this->title = $title;
@@ -16,6 +19,8 @@ readonly class Blog {
         $this->content = $content;
         $this->authorId = $authorId;
         $this->postTime = gmdate("d/m/y", strtotime($postTime));
+        $this->likes = $likes ?: 0;
+        $this->dislikes = $dislikes ?: 0;
     }
 
 }
