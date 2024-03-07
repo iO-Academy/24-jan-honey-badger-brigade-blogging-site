@@ -25,8 +25,9 @@ class CommentModel
 
     public function getAllComments(): Comment
     {
-        $query = $this->db->prepare('SELECT `id`, `authorid`, `blogid`, `content`,`timestamp`  FROM `comments` 
-        INNER JOIN `users` ON `comments` . `authorid` = `users` . `id` ORDER BY `posttime` DESC;');
+        $query = $this->db->prepare('SELECT `comments`.`id`, `comments`.`authorid`, `comments`.`blogid`, 
+       `comments`.`content`, `comments`.`timestamp`  FROM `comments` INNER JOIN `users` 
+        ON `comments` . `authorid` = `users` . `id` ORDER BY `timestamp` DESC;');
         $query ->execute();
         $data = $query->fetchAll();
         return $this->hydrateComments($data);
