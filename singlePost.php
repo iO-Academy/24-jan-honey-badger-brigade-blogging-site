@@ -21,13 +21,9 @@ if (isset($_GET['click'])){
     $userClick = $likes->checkUserPostLikes($_SESSION['userid'], $_GET['id']);
     if ($userClick===false)
     {
-        echo "new vote time";
-        var_dump($value);
         $likes->addLike($_SESSION['userid'], $_GET['id'], $value);
     } else
     {
-        echo "change the vote";
-        var_dump($value);
         $likes->updateUserPostLike($userClick, $value);
     }
 
@@ -78,7 +74,7 @@ $blog = $blogModel->getBlogById($_GET['id']);
     <article class="p-8 border border-solid rounded-md">
         <div class="flex justify-between items-center flex-col md:flex-row mb-4">
             <h2 class="text-4xl"><?php echo $blog->title; ?></h2>
-            <span class="text-xl">100 likes - 50 dislikes</span>
+            <span class="text-xl"><?php echo $blog->likes . ' Likes - ' . $blog->dislikes . ' Dislikes' ?></span>
         </div>
         <p class="text-2xl mb-10"><?php echo $blog->postTime . ' - By ' . $blog->username; ?></p>
         <p><?php echo $blog->content ?></p>
