@@ -25,6 +25,7 @@
     if (!empty($_POST['title']) && !empty($_POST['content'])) {
         $title = cleanUpInput($_POST['title']);
         $content = cleanUpInput($_POST['content']);
+        $category = $_POST['category'];
         if (strlen($_POST['title']) > 30) {
             $titleError = "Sorry, titles must be no more than 30 characters.";
             $titleCheck = false;
@@ -45,9 +46,10 @@
         }
 
         if ($titleCheck && $contentCheck) {
-            $model->addBlogPost($authorid, $title, $content);
+            $model->addBlogPost($authorid, $title, $content, $category);
             $title = '';
             $content = '';
+            $category = '';
             $successMessage = 'Thank you, your post has been submitted. Write another post or view all posts on the homepage.';
         }
     }
@@ -80,7 +82,7 @@
         </div>
         <div class="w-full sm:w-1/3">
             <label for="category" class="mb-3 block">Category:</label>
-            <select class="w-full px-3 py-[10.5px] text-lg bg-white" id="category">
+            <select class="w-full px-3 py-[10.5px] text-lg bg-white" name="category" id="category">
                 <option>News</option>
                 <option>Gaming</option>
                 <option>Films</option>

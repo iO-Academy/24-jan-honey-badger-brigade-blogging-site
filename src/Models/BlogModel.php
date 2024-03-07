@@ -23,6 +23,7 @@ class BlogModel
         `blogposts`.`content` AS "content",
         `blogposts`.`authorid` AS "authorid", 
         `blogposts`.`posttime` AS "posttime",
+        `blogposts`.`category` AS "category",
         `users`.`username` AS "username",
         COUNT(`likes`.`id`) AS "total",
         SUM(`likes`.`value`) AS "likes" 
@@ -38,16 +39,17 @@ class BlogModel
         return $this->hydrateAllBlogs($blog);
     }
 
-    public function addBlogPost(int $authorid, string $title, string $content): bool
+    public function addBlogPost(int $authorid, string $title, string $content, string $category): bool
     {
         $query = $this->db->prepare
-        ('INSERT INTO `blogposts` (`authorid`, `title`, `content`, `posttime`)
-        VALUES (:authorid, :title, :content, :posttime)');
+        ('INSERT INTO `blogposts` (`authorid`, `title`, `content`, `posttime`, `category`)
+        VALUES (:authorid, :title, :content, :posttime, :category)');
         return $query->execute([
             ':authorid' => $authorid,
             ':title' => $title,
             ':content' => $content,
-            ':posttime' => date("y-m-d H:i:s")
+            ':posttime' => date("y-m-d H:i:s"),
+            ':category' => $category
         ]);
     }
 
@@ -63,6 +65,7 @@ class BlogModel
        `blogposts`.`posttime` AS "posttime", 
        COUNT(`likes`.`id`) AS "total", 
        SUM(`likes`.`value`) AS "likes", 
+       `blogposts`.`category` AS "category",
        `users`.`username` 
         FROM `blogposts` 
         LEFT JOIN `users`
@@ -80,7 +83,7 @@ class BlogModel
     {
         $username = $data['username'] ?: 'Anonymous';
         $dislikes = $data['total']-$data['likes'];
-        return new Blog($data['id'], $data['title'], $data['content'], $data['authorid'], $username, $data['posttime'], $data['likes'], $dislikes);
+        return new Blog($data['id'], $data['title'], $data['content'], $data['authorid'], $username, $data['posttime'], $data['category'],$data['likes'], $dislikes);
     }
     public function hydrateAllBlogs(array $data): array
     {
