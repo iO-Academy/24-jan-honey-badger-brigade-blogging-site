@@ -9,7 +9,6 @@ $db = connectToDb();
 $blogModel = new BlogModel($db);
 $commentModel = new CommentModel($db);
 $comments = $commentModel->getAllComments($_GET['id']);
-var_dump($comments);
 
 $blog = $blogModel->getBlogById($_GET['id']);
 
@@ -89,11 +88,18 @@ if(isset($_SESSION['userid']))
 }
 ?>
 
+
 <section class="container md:w-1/2 mx-auto mt-5 mb-10">
+    <?php
+    foreach ($comments as $comment) : ?>
     <div class="p-8 border border-solid rounded-md bg-slate-200">
-        <div class="text-2xl mb-3">Steve Smith - 01/01/2024</div>
-        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tristique lorem sit amet mi scelerisque, eu imperdiet tortor lobortis.</p>
+        <div class="text-2xl mb-3"><?php echo $comment->username . ' - ' . $comment->timeStamp; ?></div>
+        <p> <?php echo $comment->content; ?>.</p>
     </div>
+    <?php endforeach;
+    if (empty($comments)) : echo 'No comments yet';
+    endif;
+    ?>
 </section>
 
 </body>
