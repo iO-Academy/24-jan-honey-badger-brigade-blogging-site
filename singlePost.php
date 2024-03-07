@@ -13,10 +13,10 @@ $likes = new LikeModel($db);
 
 if (isset($_GET['click'])){
     if ($_GET['click']==="Like") {
-        $value = true;
+        $value = 1;
     } else
     {
-        $value = false;
+        $value = 0;
     }
     $userClick = $likes->checkUserPostLikes($_SESSION['userid'], $_GET['id']);
     if ($userClick===false)
