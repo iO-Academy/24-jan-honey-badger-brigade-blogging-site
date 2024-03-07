@@ -31,7 +31,7 @@ class BlogModel
         ON `blogposts`.`authorid` = `users`.`id` 
         LEFT JOIN `likes` 
         ON `blogposts`.`id`=`likes`.`blogid`
-        GROUP BY `blogposts`.`id`')
+        GROUP BY `blogposts`.`id`
         ORDER BY `posttime` DESC;');
         $query->execute();
         $blog = $query->fetchAll();
