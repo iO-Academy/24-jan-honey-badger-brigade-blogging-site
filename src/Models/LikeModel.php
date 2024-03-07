@@ -1,6 +1,5 @@
 <?php
 require_once 'src/Entities/Like.php';
-require_once 'src/Entities/PostLike.php';
 
 class LikeModel
 {
@@ -33,12 +32,11 @@ class LikeModel
 
     public function updateUserPostLike(Like $like, bool $value): bool
     {
-        $query = $this->db->prepare('UPDATE `likes` SET `value` = :value
-        WHERE `id` = :id');
-        return $query->execute([
+        $query = $this->db->prepare('UPDATE `likes` SET `value` = :value WHERE `id` = :id');
+        return $query->execute(array(
             ':value' => $value,
             ':id' =>$like->id
-        ]);
+        ));
     }
 
     public function addLike(int $userid, int $blogid, bool $value): bool
@@ -48,47 +46,7 @@ class LikeModel
         return $query->execute([
             ':userid' => $userid,
             ':blogid' => $blogid,
-            ':value' => (bool)$value,
+            ':value' => $value
         ]);
-    }
-
-    public function countAllLikes(): array
-    {
-        $query = $this->db->prepare('SELECT COUNT(`id`) AS "total", `blogid`, SUM(`value`) AS "likes" FROM `likes`  GROUP BY `blogid`');
-        $query->execute([]);
-        $data = $query->fetchAll();
-        return $this->formatAllLikes($data);
-    }
-
-    public function countPostLikes(int $blogid): array
-    {
-        $query = $this->db->prepare('SELECT COUNT(`id`), `value` FROM `likes` WHERE `blogid`= :blogid GROUP BY `value`');
-        $query->execute([
-            ':blogid' => $blogid
-        ]);
-        $data = $query->fetchAll();
-        return $this->formatLikes($data);
-    }
-    /**
-     * @return Like[];
-     */
-    private function hydrateLikes(array $data): array
-    {
-        $likes = [];
-        foreach ($data as $like) {
-            $likes[] = new Like($like['userid'], $like['blogid'], $like['value']);
-        }
-        return $likes;
-    }
-    /**
-     * @return PostLike[];
-     */
-    private function formatAllLikes(array $data): array
-    {
-        $allLikes = [];
-        foreach ($data as $post) {
-            $allLikes[] = new PostLike($post['total'], $post['blogid'], $post['likes']);
-        }
-        return $allLikes;
     }
 }

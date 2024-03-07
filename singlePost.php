@@ -9,8 +9,6 @@ $blogModel = new BlogModel($db);
 $blog = $blogModel->getBlogById($_GET['id']);
 $likes = new LikeModel($db);
 
-//if (!isset($_SESSION['userid']))
-
 if (isset($_GET['click'])){
     if ($_GET['click']==="Like") {
         $value = true;
@@ -21,19 +19,17 @@ if (isset($_GET['click'])){
     $userClick = $likes->checkUserPostLikes($_SESSION['userid'], $_GET['id']);
     if ($userClick===false)
     {
+        echo 'no vote';
         var_dump($value);
+        var_dump($_SESSION['userid']);
+        var_dump($_GET['id']);
         $likes->addLike($_SESSION['userid'], $_GET['id'], $value);
     } else
     {
-        var_dump($value);
-        $likes->updateUserPostLike($userClick, $value);
+        echo 'they voted';
+        var_dump($userClick);
+//        $likes->updateUserPostLike($userClick, $value);
     }
-
-    var_dump($likes->checkUserPostLikes($_SESSION['userid'], $_GET['id']));
-    var_dump($_GET['click']);
-    var_dump($value);
-    // check for existing vote
-
 }
 ?>
 
