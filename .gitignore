@@ -3,4 +3,6 @@
 .idea/php.xml
 .idea/sqldialects.xml
 .idea/vcs.xml
+docker.spf
+ .idea/sqlDataSources.xml
 .idea
