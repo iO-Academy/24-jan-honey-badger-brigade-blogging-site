@@ -25,7 +25,7 @@ class CommentModel
     /**
      * @return Comment[];
      */
-    public function getAllComments(int $id): array | false
+    public function getAllComments(int $id): array
     {
         $query = $this->db->prepare('SELECT `comments`.`id`, `comments`.`authorid`, `comments`.`blogid`, 
        `comments`.`content`, `comments`.`timestamp`, `users` . `username` FROM `comments` LEFT JOIN `users` 
@@ -37,13 +37,18 @@ class CommentModel
     /**
      * @return Comment[];
      */
-    public function hydrateComments(array $data): array | false
+    public function hydrateComments(array $data): array
     {
         $comments = [];
         foreach ($data as $comment)
         {
-        $comments[] =  new Comment($comment['id'], $comment['authorid'],
-        $comment['blogid'], $comment['content'], $comment['timestamp'], $comment['username']);
+        $comments[] =  new Comment(
+            $comment['id'],
+            $comment['authorid'],
+            $comment['blogid'],
+            $comment['content'],
+            $comment['timestamp'],
+            $comment['username']);
         }
         return $comments;
     }
