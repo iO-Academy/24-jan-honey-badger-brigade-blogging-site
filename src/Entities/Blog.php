@@ -7,8 +7,8 @@ readonly class Blog {
     public string $extract;
     public int $authorId;
     public string $postTime;
-    public int|null $likes;
-    public int|null $dislikes;
+    public int $likes;
+    public int $dislikes;
 
 
     public function __construct(int $id, string $title, string $content, int $authorId, string $postTime, int|null $likes, int|null $dislikes)

@@ -44,7 +44,7 @@ class BlogModel
 
     public function getBlogById(int $id): Blog
     {
-        $query = $this->db->prepare('SELECT `id`, `title`, `content`, `authorid`, `posttime` FROM `blogposts` WHERE `id` = :id');
+        $query = $this->db->prepare('SELECT `blogposts`.`id` AS "id", `blogposts`.`title` AS "title",`blogposts`.`content` AS "content", `blogposts`.`authorid` AS "authorid", `blogposts`.`posttime` AS "posttime", COUNT(`likes`.`id`) AS "total", SUM(`likes`.`value`) AS "likes" FROM `blogposts` LEFT JOIN `likes` ON `blogposts`.`id`=`likes`.`blogid` WHERE `blogposts`.`id` = :id;');
         $query->execute([
             ':id' => $id
         ]);
@@ -54,6 +54,7 @@ class BlogModel
 
     public function hydrateSingleBlog(array $data): Blog
     {
-        return new Blog($data['id'], $data['title'], $data['content'], $data['authorid'], $data['posttime']);
+        $dislikes = $data['total']-$data['likes'];
+        return new Blog($data['id'], $data['title'], $data['content'], $data['authorid'], $data['posttime'], $data['likes'], $dislikes);
     }
 }
