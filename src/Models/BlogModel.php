@@ -42,7 +42,7 @@ class BlogModel
         ]);
     }
 
-    public function getBlogById(int $id): Blog
+    public function getBlogById(int $id): Blog|false
     {
         $query = $this->db->prepare('SELECT `blogposts`.`id` AS "id", `blogposts`.`title` AS "title",`blogposts`.`content` AS "content", `blogposts`.`authorid` AS "authorid", `blogposts`.`posttime` AS "posttime", COUNT(`likes`.`id`) AS "total", SUM(`likes`.`value`) AS "likes" FROM `blogposts` LEFT JOIN `likes` ON `blogposts`.`id`=`likes`.`blogid` WHERE `blogposts`.`id` = :id;');
         $query->execute([
@@ -52,7 +52,7 @@ class BlogModel
         return $this->hydrateSingleBlog($data);
     }
 
-    public function hydrateSingleBlog(array $data): Blog
+    public function hydrateSingleBlog(array $data): Blog|false
     {
         $dislikes = $data['total']-$data['likes'];
         return new Blog($data['id'], $data['title'], $data['content'], $data['authorid'], $data['posttime'], $data['likes'], $dislikes);

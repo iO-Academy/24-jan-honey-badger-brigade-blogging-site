@@ -21,18 +21,15 @@ if (isset($_GET['click'])){
     $userClick = $likes->checkUserPostLikes($_SESSION['userid'], $_GET['id']);
     if ($userClick===false)
     {
+        echo "new vote time";
         var_dump($value);
         $likes->addLike($_SESSION['userid'], $_GET['id'], $value);
     } else
     {
+        echo "change the vote";
         var_dump($value);
         $likes->updateUserPostLike($userClick, $value);
     }
-
-    var_dump($likes->checkUserPostLikes($_SESSION['userid'], $_GET['id']));
-    var_dump($_GET['click']);
-    var_dump($value);
-    // check for existing vote
 
 }
 ?>
