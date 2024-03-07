@@ -8,8 +8,18 @@ $db = connectToDb();
 $blogModel = new BlogModel($db);
 $blogs = $blogModel->getAllPosts();
 
-?>
 
+$selected = '';
+if(isset($_POST['Filter'])) {
+    $selected = $_POST['sort'];
+    if ($selected == 'oldest') {
+        $blogs = array_reverse($blogs);
+    }
+}
+function injectSelectedAttribute($selected, $optionValue) {
+    return strtolower($selected) === strtolower($optionValue) ? 'selected="selected"' : 'Newest';
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,30 +33,57 @@ $blogs = $blogModel->getAllPosts();
     <div class="flex gap-5">
         <?php echo isset($_SESSION['userid']) ?
         '<a href="addPost.php">Create Post</a><a href="logout.php">Logout</a>':
-        '<a href="login.php">Login</a>'; ?>
+        '<a href="login.php">Login</a><a href="register.php">Register</a>'; ?>
     </div>
 </nav>
+
+<form class="container lg:w-1/2 gap-5 mx-auto mb-10 flex justify-between items-center flex-col lg:flex-row px-5 sm:px-0" method="post">
+    <div class=" w-full flex flex-col lg:flex-row gap-5">
+        <div>
+            <label for="category" class="text-lg block xl:inline">Filter by category:</label>
+            <select id="category" class="px-3 py-2 text-lg w-full xl:w-auto">
+                <option>All</option>
+                <option>News</option>
+                <option>Gaming</option>
+                <option>Films</option>
+                <option>TV</option>
+                <option>Science and Nature</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="sort" class="text-lg block xl:inline">Sort by:</label>
+            <select id="sort" name="sort" class="px-3 py-2 text-lg w-full xl:w-auto" >
+                <option value="newest"  <?php echo injectSelectedAttribute($selected, 'newest'); ?> >Newest</option>
+                <option value="oldest" <?php echo injectSelectedAttribute($selected, 'oldest'); ?> >Oldest</option>
+                <option>Most Liked</option>
+                <option>Most Disliked</option>
+            </select>
+        </div>
+    </div>
+
+    <input class="px-3 py-2 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" type="submit" name="Filter" value="Filter">
+</form>
 
 <section class="container lg:w-1/2 mx-auto flex flex-col gap-5">
 
     <?php
-    if (count($blogs) > 0) {
     foreach ($blogs as $blogpost): ?>
         <article class="p-8 border border-solid rounded-md">
             <div class="flex justify-between items-center flex-col md:flex-row mb-4">
                 <h2 class="text-4xl"><?php echo $blogpost->title; ?></h2>
             </div>
-            <p class="text-2xl mb-2"><?php echo $blogpost->postTime . ' - By ' . $blogpost->authorId; ?></p>
+            <p class="text-2xl mb-2"><?php echo $blogpost->postTime . ' - By ' . $blogpost->username?></p>
             <p class="text-2xl mb-2"><?php echo $blogpost->extract ?></p>
             <div class="flex justify-center">
-
-            <a class="px-3 py-2 mt-4 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" href="singlePost.php?id=<?php echo $blogpost->id?>">View post</a>
-
+                <a class="px-3 py-2 mt-4 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" href="singlePost.php?id=<?php echo $blogpost->id?>">View post</a>
             </div>
         </article>
-    <?php endforeach; }
-    else {echo 'Sorry, no posts found.';}
-        ?>
+    <?php endforeach;
+    if (empty($blogs)):
+        echo 'Sorry, no posts found.';
+        endif;
+    ?>
 </section>
 </body>
 </html>

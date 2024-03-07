@@ -49,9 +49,7 @@ if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['e
 <nav class="flex justify-between items-center py-5 px-4 mb-10 border-b border-solid">
     <a href="index.php"><h1 class="text-5xl">Blog</h1></a>
     <div class="flex gap-5">
-        <!--        <a href="addPost.php">Create Post</a>-->
                 <a href="login.php">Login</a>
-                <a href="register.php">Register</a>
     </div>
 </nav>
 
