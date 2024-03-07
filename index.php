@@ -42,9 +42,10 @@ $blogs = $blogModel->getAllPosts();
             </div>
         </article>
     <?php endforeach;
-    if (empty($blogs))
-    {echo 'Sorry, no posts found.';}
-        ?>
+    if (empty($blogs)):
+        echo 'Sorry, no posts found.';
+        endif;
+    ?>
 </section>
 </body>
 </html>
