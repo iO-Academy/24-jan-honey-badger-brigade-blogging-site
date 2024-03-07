@@ -1,16 +1,39 @@
 <?php
 require_once 'src/connectToDb.php';
 require_once 'src/Models/BlogModel.php';
+require_once 'src/Models/LikeModel.php';
 
 session_start();
 $db = connectToDb();
 $blogModel = new BlogModel($db);
 $blog = $blogModel->getBlogById($_GET['id']);
-if (!isset($_SESSION['userid']))
+$likes = new LikeModel($db);
+
+//if (!isset($_SESSION['userid']))
 
 if (isset($_GET['click'])){
+    if ($_GET['click']==="Like") {
+        $value = true;
+    } else
+    {
+        $value = false;
+    }
+    $userClick = $likes->checkUserPostLikes($_SESSION['userid'], $_GET['id']);
+    if ($userClick===false)
+    {
+        var_dump($value);
+        $likes->addLike($_SESSION['userid'], $_GET['id'], $value);
+    } else
+    {
+        var_dump($value);
+        $likes->updateUserPostLike($userClick, $value);
+    }
+
+    var_dump($likes->checkUserPostLikes($_SESSION['userid'], $_GET['id']));
+    var_dump($_GET['click']);
+    var_dump($value);
     // check for existing vote
-    //update as needed
+
 }
 ?>
 
@@ -37,7 +60,7 @@ if (isset($_GET['click'])){
 <!--        <span class="px-3 py-2 bg bg-slate-200 inline-block mb-4 rounded-sm">Gaming</span>-->
         <div class="flex justify-between items-center flex-col md:flex-row mb-4">
             <h2 class="text-4xl"><?php echo $blog->title; ?></h2>
-            <span class="text-xl">100 likes - 50 dislikes</span>
+            <span class="text-xl"><?php echo $blog->likes . ' Likes - ' . $blog->dislikes . ' Dislikes' ?></span>
         </div>
         <p class="text-2xl mb-10"><?php echo $blog->postTime . ' - By ' . $blog->id; ?></p>
         <p><?php echo $blog->content ?></p>

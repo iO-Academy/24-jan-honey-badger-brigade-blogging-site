@@ -1,6 +1,8 @@
 <?php
 
 require_once 'src/Entities/Blog.php';
+require_once 'src/Entities/Like.php';
+require_once 'src/Models/LikeModel.php';
 
 class BlogModel
 {
@@ -16,12 +18,13 @@ class BlogModel
      */
     public function getAllPosts(): array
     {
-        $query = $this->db->prepare('SELECT `id`, `title`, `content`, `authorid`, `posttime`  FROM `blogposts` ORDER BY `posttime` DESC;');
+        $query = $this->db->prepare('SELECT `blogposts`.`id` AS "id", `blogposts`.`title` AS "title",`blogposts`.`content` AS "content", `blogposts`.`authorid` AS "authorid", `blogposts`.`posttime` AS "posttime", COUNT(`likes`.`id`) AS "total", SUM(`likes`.`value`) AS "likes" FROM `blogposts` LEFT JOIN `likes` ON `blogposts`.`id`=`likes`.`blogid` GROUP BY `blogposts`.`id` ORDER BY `posttime` DESC;');
         $query->execute();
         $blog = $query->fetchAll();
         $blogposts = [];
         foreach ($blog as $post) {
-            $blogposts[] = new Blog($post['id'], $post['title'], $post['content'], $post['authorid'], $post['posttime']);
+            $dislikes = $post['total']-$post['likes'];
+            $blogposts[] = new Blog($post['id'], $post['title'], $post['content'], $post['authorid'], $post['posttime'], $post['likes'], $dislikes);
         }
         return $blogposts;
     }
@@ -41,7 +44,7 @@ class BlogModel
 
     public function getBlogById(int $id): Blog
     {
-        $query = $this->db->prepare('SELECT `id`, `title`, `content`, `authorid`, `posttime` FROM `blogposts` WHERE `id` = :id');
+        $query = $this->db->prepare('SELECT `blogposts`.`id` AS "id", `blogposts`.`title` AS "title",`blogposts`.`content` AS "content", `blogposts`.`authorid` AS "authorid", `blogposts`.`posttime` AS "posttime", COUNT(`likes`.`id`) AS "total", SUM(`likes`.`value`) AS "likes" FROM `blogposts` LEFT JOIN `likes` ON `blogposts`.`id`=`likes`.`blogid` WHERE `blogposts`.`id` = :id;');
         $query->execute([
             ':id' => $id
         ]);
@@ -51,6 +54,7 @@ class BlogModel
 
     public function hydrateSingleBlog(array $data): Blog
     {
-        return new Blog($data['id'], $data['title'], $data['content'], $data['authorid'], $data['posttime']);
+        $dislikes = $data['total']-$data['likes'];
+        return new Blog($data['id'], $data['title'], $data['content'], $data['authorid'], $data['posttime'], $data['likes'], $dislikes);
     }
 }
