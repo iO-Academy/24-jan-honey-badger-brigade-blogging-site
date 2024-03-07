@@ -10,6 +10,7 @@
     $db = connectToDb();
     $title = '';
     $content = '';
+    $category ='';
     $titleError = '';
     $contentError = '';
     $successMessage = '';
@@ -83,11 +84,11 @@
         <div class="w-full sm:w-1/3">
             <label for="category" class="mb-3 block">Category:</label>
             <select class="w-full px-3 py-[10.5px] text-lg bg-white" name="category" id="category">
-                <option>News</option>
-                <option>Gaming</option>
-                <option>Films</option>
-                <option>TV</option>
-                <option>Science and Nature</option>
+                <option <?php if($category === 'News') {echo "selected=selected"; } ?>>News</option>
+                <option <?php if($category === 'Gaming') {echo "selected=selected"; } ?>>Gaming</option>
+                <option <?php if($category === 'Films') {echo "selected=selected"; } ?>>Films</option>
+                <option <?php if($category === 'TV') {echo "selected=selected"; } ?>>TV</option>
+                <option <?php if($category === 'Science and Nature') {echo "selected=selected"; } ?>>Science and Nature</option>
             </select>
         </div>
     </div>
