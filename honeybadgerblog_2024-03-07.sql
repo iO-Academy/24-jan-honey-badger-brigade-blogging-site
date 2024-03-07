@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 11.2.3-MariaDB-1:11.2.3+maria~ubu2204)
 # Database: honeybadgerblog
-# Generation Time: 2024-03-07 16:58:06 +0000
+# Generation Time: 2024-03-07 19:37:34 +0000
 # ************************************************************
 
 
@@ -31,20 +31,23 @@ CREATE TABLE `blogposts` (
   `content` longtext NOT NULL,
   `authorid` int(11) NOT NULL,
   `posttime` timestamp NOT NULL,
+  `category` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 LOCK TABLES `blogposts` WRITE;
 /*!40000 ALTER TABLE `blogposts` DISABLE KEYS */;
 
-INSERT INTO `blogposts` (`id`, `title`, `content`, `authorid`, `posttime`)
+INSERT INTO `blogposts` (`id`, `title`, `content`, `authorid`, `posttime`, `category`)
 VALUES
-	(1,'The One Habit Doctors Won\'t Tell You','Blog post 1 is some health grifting. Don\'t click!! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et sollicitudin orci. Morbi eu metus pellentesque, fermentum quam in, vestibulum tellus. Sed dapibus libero eget tincidunt imperdiet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc ultrices sapien ac metus consectetur, eu dignissim ligula pellentesque. Donec at est nibh. Proin et nibh blandit neque aliquam volutpat quis quis ligula. Proin finibus posuere purus, vitae faucibus justo lobortis in. Maecenas sed suscipit orci.\n\n',1,'2024-03-04 10:11:03'),
-	(2,'28 Facts You Didn\'t Know About The Marvel Universe','Blog post 2 is about entertainment. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et sollicitudin orci. Morbi eu metus pellentesque, fermentum quam in, vestibulum tellus. Sed dapibus libero eget tincidunt imperdiet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc ultrices sapien ac metus consectetur, eu dignissim ligula pellentesque. Donec at est nibh. Proin et nibh blandit neque aliquam volutpat quis quis ligula. Proin finibus posuere purus, vitae faucibus justo lobortis in. Maecenas sed suscipit orci.\n\nC',1,'2024-03-04 10:20:39'),
-	(3,'He\'s a 10 but He Ordered Lemon & Herb Nandos...','Blog post 3 is about dating. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et sollicitudin orci. Morbi eu metus pellentesque, fermentum quam in, vestibulum tellus. Sed dapibus libero eget tincidunt imperdiet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc ultrices sapien ac metus consectetur, eu dignissim ligula pellentesque. Donec at est nibh. Proin et nibh blandit neque aliquam volutpat quis quis ligula. Proin finibus posuere purus, vitae faucibus justo lobortis in. Maecenas sed suscipit orci.\n\n',2,'2024-03-04 10:23:52'),
-	(4,'Jar Jar Binks or Legolas? Who is Worse?','Blog 4 is about nerdy movies. Lorem Ipsum Cras tempor erat eros, at aliquet massa ultricies in. Morbi fringilla urna vel turpis pulvinar varius. Aliquam erat volutpat. Integer iaculis diam mi, sed aliquam augue maximus pharetra. Nulla congue id leo pellentesque fermentum. Ut semper iaculis arcu, ut condimentum odio consectetur sit amet. Etiam finibus augue non convallis blandit. Donec tempor ligula diam, non egestas ex fermentum sit amet. Vestibulum consequat turpis et nisi blandit tincidunt. Nulla quis nulla sit amet orci blandit semper nec hendrerit purus. Vivamus at enim tortor.',0,'2024-03-07 14:40:32'),
-	(5,'qdfqedqewf','rfwefwe',2,'2024-03-07 04:31:15'),
-	(6,'Yet Another Post','Lorem ipsum rocks and I won\'t have a word said against it. You may think it\'s weird and boring to put latin on a website, but where else can latin scholars get work?',2,'2024-03-07 04:37:53');
+	(1,'The One Habit Doctors Won\'t Tell You','Blog post 1 is some health grifting. Don\'t click!! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et sollicitudin orci. Morbi eu metus pellentesque, fermentum quam in, vestibulum tellus. Sed dapibus libero eget tincidunt imperdiet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc ultrices sapien ac metus consectetur, eu dignissim ligula pellentesque. Donec at est nibh. Proin et nibh blandit neque aliquam volutpat quis quis ligula. Proin finibus posuere purus, vitae faucibus justo lobortis in. Maecenas sed suscipit orci.\n\n',1,'2024-03-04 10:11:03','Science and Nature'),
+	(2,'28 Facts You Didn\'t Know About The Marvel Universe','Blog post 2 is about entertainment. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et sollicitudin orci. Morbi eu metus pellentesque, fermentum quam in, vestibulum tellus. Sed dapibus libero eget tincidunt imperdiet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc ultrices sapien ac metus consectetur, eu dignissim ligula pellentesque. Donec at est nibh. Proin et nibh blandit neque aliquam volutpat quis quis ligula. Proin finibus posuere purus, vitae faucibus justo lobortis in. Maecenas sed suscipit orci.\n\nC',1,'2024-03-04 10:20:39','Films'),
+	(3,'He\'s a 10 but He Ordered Lemon & Herb Nandos...','Blog post 3 is about dating. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et sollicitudin orci. Morbi eu metus pellentesque, fermentum quam in, vestibulum tellus. Sed dapibus libero eget tincidunt imperdiet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc ultrices sapien ac metus consectetur, eu dignissim ligula pellentesque. Donec at est nibh. Proin et nibh blandit neque aliquam volutpat quis quis ligula. Proin finibus posuere purus, vitae faucibus justo lobortis in. Maecenas sed suscipit orci.\n\n',2,'2024-03-04 10:23:52','News'),
+	(4,'Jar Jar Binks or Legolas? Who is Worse?','Blog 4 is about nerdy movies. Lorem Ipsum Cras tempor erat eros, at aliquet massa ultricies in. Morbi fringilla urna vel turpis pulvinar varius. Aliquam erat volutpat. Integer iaculis diam mi, sed aliquam augue maximus pharetra. Nulla congue id leo pellentesque fermentum. Ut semper iaculis arcu, ut condimentum odio consectetur sit amet. Etiam finibus augue non convallis blandit. Donec tempor ligula diam, non egestas ex fermentum sit amet. Vestibulum consequat turpis et nisi blandit tincidunt. Nulla quis nulla sit amet orci blandit semper nec hendrerit purus. Vivamus at enim tortor.',0,'2024-03-07 14:40:32','Films'),
+	(5,'qdfqedqewf','rfwefwe',2,'2024-03-07 04:31:15','News'),
+	(6,'Yet Another Post','Lorem ipsum rocks and I won\'t have a word said against it. You may think it\'s weird and boring to put latin on a website, but where else can latin scholars get work?',2,'2024-03-07 04:37:53','TV'),
+	(7,'Early morning blogging','Does this come back as the morning or evening? Only PHP can tell me the answer',2,'2024-03-07 17:06:53','Films'),
+	(8,'How I beat Tetris','I just got really good at matching up the shapes and tesselating them really fast. My favourite shape is the L because I like right angles.',2,'2024-03-07 18:53:25','Gaming');
 
 /*!40000 ALTER TABLE `blogposts` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -140,7 +143,8 @@ VALUES
 	(40,2,9,1),
 	(41,2,6,1),
 	(42,2,4,0),
-	(43,2,5,0);
+	(43,2,5,0),
+	(44,2,3,1);
 
 /*!40000 ALTER TABLE `likes` ENABLE KEYS */;
 UNLOCK TABLES;
