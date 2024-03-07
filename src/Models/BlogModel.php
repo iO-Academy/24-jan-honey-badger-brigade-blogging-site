@@ -39,7 +39,7 @@ class BlogModel
         ]);
     }
 
-    public function getBlogById(int $id): Blog
+    public function getBlogById(int $id): Blog|false
     {
         $query = $this->db->prepare('SELECT `id`, `title`, `content`, `authorid`, `posttime` FROM `blogposts` WHERE `id` = :id');
         $query->execute([
@@ -49,7 +49,7 @@ class BlogModel
         return $this->hydrateSingleBlog($data);
     }
 
-    public function hydrateSingleBlog(array $data): Blog
+    public function hydrateSingleBlog(array $data): Blog|false
     {
         return new Blog($data['id'], $data['title'], $data['content'], $data['authorid'], $data['posttime']);
     }

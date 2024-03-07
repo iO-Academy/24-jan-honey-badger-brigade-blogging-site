@@ -1,6 +1,5 @@
 <?php
 require_once 'src/Entities/Like.php';
-require_once 'src/Entities/PostLike.php';
 
 class LikeModel
 {
@@ -33,22 +32,24 @@ class LikeModel
 
     public function updateUserPostLike(Like $like, bool $value): bool
     {
+        $intValue = $value ? 1 : 0;
         $query = $this->db->prepare('UPDATE `likes` SET `value` = :value
         WHERE `id` = :id');
         return $query->execute([
-            ':value' => $value,
+            ':value' => $intValue,
             ':id' =>$like->id
         ]);
     }
 
     public function addLike(int $userid, int $blogid, bool $value): bool
     {
+        $intValue = $value ? 1 : 0;
         $query = $this->db->prepare('INSERT INTO `likes` (`userid`, `blogid`, `value`) 
         VALUES (:userid, :blogid, :value)');
         return $query->execute([
             ':userid' => $userid,
             ':blogid' => $blogid,
-            ':value' => (bool)$value,
+            ':value' => $intValue,
         ]);
     }
 
