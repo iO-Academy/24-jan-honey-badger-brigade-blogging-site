@@ -1,38 +1,32 @@
 <?php
     require_once 'src/Models/BlogModel.php';
     require_once 'src/connectToDb.php';
-
     session_start();
-    $db = connectToDb();
-
-
-    // Check if user is logged in - else send back to login (this doesn't work right now?)
     if (!isset($_SESSION['userid'])) {
-        header('Location: src/login.php');
+        header('Location: login.php');
     } else {
         $authorid = $_SESSION['userid'];
     }
-
+    $db = connectToDb();
     $title = '';
     $content = '';
     $titleError = '';
     $contentError = '';
     $successMessage = '';
     $model = new BlogModel($db);
-    $titleCheck=false;
-    $contentCheck=false;
+    $titleCheck = false;
+    $contentCheck = false;
 
-    function cleanUpInput($data) {
-    $data = trim($data);
-    $data = htmlspecialchars($data);
-    return $data;
+    function cleanUpInput(string $data): string {
+        $data = trim($data);
+        return htmlspecialchars($data);
     }
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (!empty($_POST['title']) && !empty($_POST['content'])) {
         $title = cleanUpInput($_POST['title']);
         $content = cleanUpInput($_POST['content']);
         if (strlen($_POST['title']) > 30) {
-            $titleError = "Sorry, titles must be less than 30 characters.";
+            $titleError = "Sorry, titles must be no more than 30 characters.";
             $titleCheck = false;
         } elseif (empty($_POST['title'])) {
             $titleError = "Sorry, a title is required";
@@ -41,7 +35,7 @@
             $titleCheck = true;
         }
         if (strlen($_POST['content']) > 1000) {
-            $contentError = "Sorry, posts must be less than 1000 characters.";
+            $contentError = "Sorry, posts must be no more than 1000 characters.";
             $contentCheck = false;
         } elseif (empty($_POST['content'])) {
             $contentError = "Sorry, some post content is required";
@@ -71,8 +65,7 @@
     <a href="index.php"><h1 class="text-5xl">Blog</h1></a>
     <div class="flex gap-5">
         <a href="addPost.php">Create Post</a>
-        <a href="login.php">Login</a>
-        <a href="register.php">Register</a>
+        <a href="logout.php">Logout</a>
     </div>
 </nav>
 
