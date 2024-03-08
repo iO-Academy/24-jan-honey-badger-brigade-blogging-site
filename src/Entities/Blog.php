@@ -12,7 +12,6 @@ readonly class Blog
     public int $dislikes;
     public bool $controversial;
     public function __construct(int $id, string $title, string $content, ?int $authorId, string $username, string $postTime, int|null $likes, int|null $dislikes)
-
     {
         $this->id = $id;
         $this->title = $title;
