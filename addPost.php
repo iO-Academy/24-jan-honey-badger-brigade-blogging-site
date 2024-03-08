@@ -1,6 +1,8 @@
 <?php
     require_once 'src/Models/BlogModel.php';
     require_once 'src/connectToDb.php';
+    require_once 'src/cleanInput.php';
+
     session_start();
     if (!isset($_SESSION['userid'])) {
         header('Location: login.php');
@@ -17,11 +19,6 @@
     $titleCheck = false;
     $contentCheck = false;
 
-    function cleanUpInput(string $data): string {
-        $data = trim($data);
-        return htmlspecialchars($data);
-    }
-
     if (!empty($_POST['title']) && !empty($_POST['content'])) {
         $title = cleanUpInput($_POST['title']);
         $content = cleanUpInput($_POST['content']);
@@ -37,7 +34,7 @@
         if (strlen($_POST['content']) > 1000) {
             $contentError = "Sorry, posts must be no more than 1000 characters.";
             $contentCheck = false;
-        } elseif (empty($_POST['content']) || strlen($_POST['content']) < 50) {
+        } elseif (strlen($_POST['content']) < 50) {
             $contentError = "Sorry, posts must have at least 50 characters";
             $contentCheck = false;
         } else {

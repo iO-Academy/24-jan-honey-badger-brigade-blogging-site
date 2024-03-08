@@ -30,25 +30,23 @@ class LikeModel
         }
     }
 
-    public function updateUserPostLike(Like $like, bool $value): bool
+    public function updateUserPostLike(Like $like, int $value): bool
     {
-        $intValue = $value ? 1 : 0;
         $query = $this->db->prepare('UPDATE `likes` SET `value` = :value
         WHERE `id` = :id');
         return $query->execute([
-            ':value' => $intValue,
+            ':value' => $value,
             ':id' =>$like->id
         ]);
     }
-    public function addLike(int $userid, int $blogid, bool $value): bool
+    public function addLike(int $userid, int $blogid, int $value): bool
     {
-        $intValue = $value ? 1 : 0;
         $query = $this->db->prepare('INSERT INTO `likes` (`userid`, `blogid`, `value`) 
         VALUES (:userid, :blogid, :value)');
         return $query->execute([
             ':userid' => $userid,
             ':blogid' => $blogid,
-            ':value' => $intValue,
+            ':value' => $value,
         ]);
     }
 }

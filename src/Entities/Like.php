@@ -4,14 +4,14 @@ readonly class Like {
     public int $id;
     public int $userid;
     public int $blogid;
-    public bool $like;
+    public int $value;
 
-    public function __construct(int $id, int $userid, int $blogid, bool $like)
+    public function __construct(int $id, int $userid, int $blogid, int $value)
     {
         $this->id = $id;
         $this->userid = $userid;
         $this->blogid = $blogid;
-        $this->like = $like;
+        $this->value = $value;
     }
 
 }
