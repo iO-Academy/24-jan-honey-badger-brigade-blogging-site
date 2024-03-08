@@ -15,6 +15,19 @@ if(isset($_POST['Filter'])) {
     if ($selected == 'oldest') {
         $blogs = array_reverse($blogs);
     }
+    if ($selected == 'liked') {
+        usort($blogs, function($a , $b)
+        {
+            return $b->likes - $a->likes;
+        });
+    }
+
+    if ($selected == 'disliked') {
+        usort($blogs, function($a , $b)
+        {
+            return $b->dislikes - $a->dislikes;
+        });
+    }
 }
 function injectSelectedAttribute($selected, $optionValue) {
     return strtolower($selected) === strtolower($optionValue) ? 'selected="selected"' : 'Newest';
@@ -56,8 +69,8 @@ function injectSelectedAttribute($selected, $optionValue) {
             <select id="sort" name="sort" class="px-3 py-2 text-lg w-full xl:w-auto" >
                 <option value="newest"  <?php echo injectSelectedAttribute($selected, 'newest'); ?> >Newest</option>
                 <option value="oldest" <?php echo injectSelectedAttribute($selected, 'oldest'); ?> >Oldest</option>
-                <option>Most Liked</option>
-                <option>Most Disliked</option>
+                <option value="liked"<?php echo injectSelectedAttribute($selected, 'liked'); ?> >Most Liked</option>
+                <option value="disliked" <?php echo injectSelectedAttribute($selected, 'disliked'); ?> > Most Disliked</option>
             </select>
         </div>
     </div>

@@ -26,6 +26,18 @@ readonly class Blog
         $this->likes = $likes ?: 0;
         $this->dislikes = $dislikes ?: 0;
     }
+
+    public function getLikes(): int
+    {
+        return $this->likes;
+    }
+
+    public function getDislikes(): int
+    {
+        return $this->dislikes;
+    }
+
+
 }
 
 
