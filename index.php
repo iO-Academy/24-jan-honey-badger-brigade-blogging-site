@@ -15,6 +15,19 @@ if(isset($_POST['Filter'])) {
     if ($selected == 'oldest') {
         $blogs = array_reverse($blogs);
     }
+    if ($selected == 'liked') {
+        usort($blogs, function($a , $b)
+        {
+            return $b->likes - $a->likes;
+        });
+    }
+
+    if ($selected == 'disliked') {
+        usort($blogs, function($a , $b)
+        {
+            return $b->dislikes - $a->dislikes;
+        });
+    }
 }
 function injectSelectedAttribute($selected, $optionValue) {
     return strtolower($selected) === strtolower($optionValue) ? 'selected="selected"' : 'Newest';
@@ -56,8 +69,8 @@ function injectSelectedAttribute($selected, $optionValue) {
             <select id="sort" name="sort" class="px-3 py-2 text-lg w-full xl:w-auto" >
                 <option value="newest"  <?php echo injectSelectedAttribute($selected, 'newest'); ?> >Newest</option>
                 <option value="oldest" <?php echo injectSelectedAttribute($selected, 'oldest'); ?> >Oldest</option>
-                <option>Most Liked</option>
-                <option>Most Disliked</option>
+                <option value="liked"<?php echo injectSelectedAttribute($selected, 'liked'); ?> >Most Liked</option>
+                <option value="disliked" <?php echo injectSelectedAttribute($selected, 'disliked'); ?> > Most Disliked</option>
             </select>
         </div>
     </div>
@@ -72,6 +85,7 @@ function injectSelectedAttribute($selected, $optionValue) {
         <article class="p-8 border border-solid rounded-md">
             <div class="flex justify-between items-center flex-col md:flex-row mb-4">
                 <h2 class="text-4xl"><?php echo $blogpost->title; ?></h2>
+                <span class="text-xl"><?php echo $blogpost->likes . ' Likes - ' . $blogpost->dislikes . ' Dislikes' ?></span>
             </div>
             <p class="text-2xl mb-2"><?php echo $blogpost->postTime . ' - By ' . $blogpost->username?></p>
             <p class="text-2xl mb-2"><?php echo $blogpost->extract ?></p>
