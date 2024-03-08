@@ -23,7 +23,7 @@ readonly class Blog
         $this->postTime = gmdate("d/m/y", strtotime($postTime));
         $this->likes = $likes ?: 0;
         $this->dislikes = $dislikes ?: 0;
-        ($this->likes*1.5)<$this->dislikes ? $this->controversial=true : $this->controversial=false;
+        $this->controversial = ($this->likes*1.5)<$this->dislikes ? true : false;
     }
 }
 
