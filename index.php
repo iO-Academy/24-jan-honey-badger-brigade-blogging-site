@@ -1,5 +1,4 @@
 <?php
-
 require_once 'src/connectToDb.php';
 require_once 'src/Models/BlogModel.php';
 
@@ -7,7 +6,6 @@ session_start();
 $db = connectToDb();
 $blogModel = new BlogModel($db);
 $blogs = $blogModel->getAllPosts();
-
 
 $selected = '';
 if(isset($_POST['Filter'])) {
@@ -21,7 +19,6 @@ if(isset($_POST['Filter'])) {
             return $b->likes - $a->likes;
         });
     }
-
     if ($selected == 'disliked') {
         usort($blogs, function($a , $b)
         {

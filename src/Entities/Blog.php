@@ -11,10 +11,7 @@ readonly class Blog
     public int $likes;
     public int $dislikes;
 
-
-
     public function __construct(int $id, string $title, string $content, ?int $authorId, string $username, string $postTime, int|null $likes, int|null $dislikes)
-
     {
         $this->id = $id;
         $this->title = $title;
@@ -26,18 +23,6 @@ readonly class Blog
         $this->likes = $likes ?: 0;
         $this->dislikes = $dislikes ?: 0;
     }
-
-    public function getLikes(): int
-    {
-        return $this->likes;
-    }
-
-    public function getDislikes(): int
-    {
-        return $this->dislikes;
-    }
-
-
 }
 
 
