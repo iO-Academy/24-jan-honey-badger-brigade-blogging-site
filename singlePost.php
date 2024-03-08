@@ -13,10 +13,10 @@ $likes = new LikeModel($db);
 
 if (isset($_GET['click'])){
     if ($_GET['click']==="Like") {
-        $value = true;
+        $value = 1;
     } else
     {
-        $value = false;
+        $value = 0;
     }
     $userClick = $likes->checkUserPostLikes($_SESSION['userid'], $_GET['id']);
     if ($userClick===false)
@@ -72,6 +72,7 @@ $blog = $blogModel->getBlogById($_GET['id']);
 
 <section class="container md:w-1/2 mx-auto">
     <article class="p-8 border border-solid rounded-md">
+        <?php echo $blog->controversial ? '<span class="px-3 py-2 bg bg-rose-600 inline-block mb-4 rounded-sm">Controversial</span>':'' ;?>
         <div class="flex justify-between items-center flex-col md:flex-row mb-4">
             <h2 class="text-4xl"><?php echo $blog->title; ?></h2>
             <span class="text-xl"><?php echo $blog->likes . ' Likes - ' . $blog->dislikes . ' Dislikes' ?></span>

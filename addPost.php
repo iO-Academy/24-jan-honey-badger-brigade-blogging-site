@@ -37,7 +37,7 @@
         if (strlen($_POST['content']) > 1000) {
             $contentError = "Sorry, posts must be no more than 1000 characters.";
             $contentCheck = false;
-        } elseif (empty($_POST['content']) || strlen($_POST['content']) < 50) {
+        } elseif (strlen($_POST['content']) < 50) {
             $contentError = "Sorry, posts must have at least 50 characters";
             $contentCheck = false;
         } else {

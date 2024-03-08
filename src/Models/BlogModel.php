@@ -47,7 +47,7 @@ class BlogModel
             ':authorid' => $authorid,
             ':title' => $title,
             ':content' => $content,
-            ':posttime' => date("y-m-d h:i:s")
+            ':posttime' => date("y-m-d H:i:s")
         ]);
     }
 
