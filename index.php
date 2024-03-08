@@ -8,8 +8,12 @@ $blogModel = new BlogModel($db);
 $blogs = $blogModel->getAllPosts();
 
 $selected = '';
+$selectedCat = '';
+var_dump($_POST);
 if(isset($_POST['Filter'])) {
     $selected = $_POST['sort'];
+    $selectedCat = $_POST['sortCat'];
+    var_dump($selectedCat);
     if ($selected == 'oldest') {
         $blogs = array_reverse($blogs);
     }
@@ -28,6 +32,9 @@ if(isset($_POST['Filter'])) {
 }
 function injectSelectedAttribute($selected, $optionValue) {
     return strtolower($selected) === strtolower($optionValue) ? 'selected="selected"' : 'Newest';
+}
+function injectSelectedCategory($selectedCat, $optionValueCat) {
+    return strtolower($selectedCat) === strtolower($optionValueCat) ? 'selected="selected"' : 'All';
 }
 ?>
 <!DOCTYPE html>
@@ -50,30 +57,15 @@ function injectSelectedAttribute($selected, $optionValue) {
     <div class=" w-full flex flex-col lg:flex-row gap-5">
         <div>
             <label for="category" class="text-lg block xl:inline">Filter by category:</label>
-            <select id="category" class="px-3 py-2 text-lg w-full xl:w-auto">
-                <option>All</option>
-                <option>News</option>
-                <option>Gaming</option>
-                <option>Films</option>
-                <option>TV</option>
-                <option>Science and Nature</option>
+            <select id="category" name="sortCat" class="px-3 py-2 text-lg w-full xl:w-auto">
+                <option value="all" <?php echo injectSelectedCategory($selectedCat, 'all'); ?> >All</option>
+                <option value="news" <?php echo injectSelectedCategory($selectedCat, 'news'); ?> >News</option>
+                <option value="gaming" <?php echo injectSelectedCategory($selectedCat, 'gaming'); ?>  >Gaming</option>
+                <option value="films" <?php echo injectSelectedCategory($selectedCat, 'films'); ?> >Films</option>
+                <option value="tv" <?php echo injectSelectedCategory($selectedCat, 'tv'); ?> >TV</option>
+                <option value="scienceandnature" <?php echo injectSelectedCategory($selectedCat, 'scienceandnature'); ?> >Science and Nature</option>
             </select>
         </div>
-        <div>
-            <label for="sort" class="text-lg block xl:inline">Sort by:</label>
-            <select id="sort" class="px-3 py-2 text-lg w-full xl:w-auto">
-                <option>Newest</option>
-                <option>Oldest</option>
-                <option>Most Liked</option>
-                <option>Most Disliked</option>
-            </select>
-        </div>
-    </div>
-    <input class="px-3 py-2 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" type="submit" value="Filter">
-</form>
-
-<section class="container lg:w-1/2 mx-auto flex flex-col gap-5">
-
         <div>
             <label for="sort" class="text-lg block xl:inline">Sort by:</label>
             <select id="sort" name="sort" class="px-3 py-2 text-lg w-full xl:w-auto" >
@@ -84,8 +76,7 @@ function injectSelectedAttribute($selected, $optionValue) {
             </select>
         </div>
     </div>
-
-    <input class="px-3 py-2 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" type="submit" name="Filter" value="Filter">
+    <input class="px-3 py-2 text-lg bg-indigo-400 hover:bg-indigo-700 hover:text-white transition inline-block rounded-sm" type="submit" name="filter" value="Filter">
 </form>
 
 <section class="container lg:w-1/2 mx-auto flex flex-col gap-5">
