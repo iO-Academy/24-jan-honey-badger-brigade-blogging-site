@@ -1,6 +1,8 @@
 <?php
     require_once 'src/Models/BlogModel.php';
     require_once 'src/connectToDb.php';
+    require_once 'src/cleanInput.php';
+
     session_start();
     if (!isset($_SESSION['userid'])) {
         header('Location: login.php');
@@ -17,11 +19,6 @@
     $model = new BlogModel($db);
     $titleCheck = false;
     $contentCheck = false;
-
-    function cleanUpInput(string $data): string {
-        $data = trim($data);
-        return htmlspecialchars($data);
-    }
 
     if (!empty($_POST['title']) && !empty($_POST['content'])) {
         $title = cleanUpInput($_POST['title']);

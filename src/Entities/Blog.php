@@ -12,6 +12,7 @@ readonly class Blog
     public int $likes;
     public int $dislikes;
     public bool $controversial;
+
     public function __construct(int $id, string $title, string $content, ?int $authorId, string $username, string $postTime, ?string $category, int|null $likes, int|null $dislikes)
 
     {
@@ -25,7 +26,7 @@ readonly class Blog
         $this->category = $category ?: '';
         $this->likes = $likes ?: 0;
         $this->dislikes = $dislikes ?: 0;
-        ($this->likes*1.5)<$this->dislikes ? $this->controversial=true : $this->controversial=false;
+        $this->controversial = ($this->likes*1.5)<$this->dislikes ? true : false;
     }
 }
 
