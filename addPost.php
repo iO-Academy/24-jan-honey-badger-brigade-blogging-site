@@ -37,8 +37,8 @@
         if (strlen($_POST['content']) > 1000) {
             $contentError = "Sorry, posts must be no more than 1000 characters.";
             $contentCheck = false;
-        } elseif (empty($_POST['content'])) {
-            $contentError = "Sorry, some post content is required";
+        } elseif (empty($_POST['content']) || strlen($_POST['content']) < 50) {
+            $contentError = "Sorry, posts must have at least 50 characters";
             $contentCheck = false;
         } else {
             $contentCheck = true;
@@ -79,11 +79,8 @@
             <p><?php echo $titleError; ?></p>
         </div>
         <div class="w-full sm:w-1/3">
-
         </div>
-
     </div>
-
     <div class="mb-5">
         <label class="mb-3 block" for="content">Content:</label>
         <textarea class="w-full" id="content" rows="9" name="content" required><?php echo $content;?></textarea>

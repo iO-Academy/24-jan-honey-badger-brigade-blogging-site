@@ -40,9 +40,7 @@ if(isset($_POST['submit'])) {
 <nav class="flex justify-between items-center py-5 px-4 mb-10 border-b border-solid">
     <a href="index.php"><h1 class="text-5xl">Blog</h1></a>
     <div class="flex gap-5">
-        <?php echo isset($_SESSION['userid']) ?
-            '<a href="logout.php">Logout</a>':
-            '<a href="register.php">Register</a>'; ?>
+        <a href="register.php">Register</a>
     </div>
 </nav>
 <form method="post" class="container lg:w-1/4 mx-auto flex flex-col p-8 bg-slate-200">
