@@ -23,7 +23,7 @@ class BlogModel
         `blogposts`.`content` AS "content",
         `blogposts`.`authorid` AS "authorid", 
         `blogposts`.`posttime` AS "posttime",
-        `blogposts`.`category` AS "category",
+        `categories`.`name` AS "category",
         `users`.`username` AS "username",
         COUNT(`likes`.`id`) AS "total",
         SUM(`likes`.`value`) AS "likes" 
@@ -32,6 +32,8 @@ class BlogModel
         ON `blogposts`.`authorid` = `users`.`id` 
         LEFT JOIN `likes` 
         ON `blogposts`.`id`=`likes`.`blogid`
+        LEFT JOIN `categories`
+        ON `blogposts`.`category` = `categories`.`id`
         GROUP BY `blogposts`.`id`
         ORDER BY `posttime` DESC;');
         $query->execute();
@@ -39,7 +41,7 @@ class BlogModel
         return $this->hydrateAllBlogs($blog);
     }
 
-    public function addBlogPost(int $authorid, string $title, string $content, string $category): bool
+    public function addBlogPost(int $authorid, string $title, string $content, int $category): bool
     {
         $query = $this->db->prepare
         ('INSERT INTO `blogposts` (`authorid`, `title`, `content`, `posttime`, `category`)
