@@ -7,11 +7,9 @@
 #
 # Host: 127.0.0.1 (MySQL 11.2.3-MariaDB-1:11.2.3+maria~ubu2204)
 # Database: honeybadgerblog
-<<<<<<< HEAD:honeybadgerblog_2024-03-08.sql
+
 # Generation Time: 2024-03-08 14:08:59 +0000
-=======
-# Generation Time: 2024-03-08 13:40:30 +0000
->>>>>>> b27d20a376b1c72e5483bc088e35057084763def:honeybadgerblog_2024-03-07.sql
+
 # ************************************************************
 
 
