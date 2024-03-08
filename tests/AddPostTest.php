@@ -2,7 +2,8 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once 'addPost.php';
+
+require_once 'src/cleanInput.php';
 
 class AddPostTest extends TestCase
 {

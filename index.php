@@ -28,7 +28,6 @@ $blogs = $blogModel->getAllPosts();
 </nav>
 
 <section class="container lg:w-1/2 mx-auto flex flex-col gap-5">
-
     <?php
     foreach ($blogs as $blogpost): ?>
         <article class="p-8 border border-solid rounded-md">
