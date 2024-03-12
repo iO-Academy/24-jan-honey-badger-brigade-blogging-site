@@ -2,6 +2,7 @@
     require_once 'src/Models/BlogModel.php';
     require_once 'src/connectToDb.php';
     require_once 'src/cleanInput.php';
+    require_once 'src/Models/CategoryModel.php';
 
     session_start();
     if (!isset($_SESSION['userid'])) {
@@ -16,12 +17,15 @@
     $contentError = '';
     $successMessage = '';
     $model = new BlogModel($db);
+    $categories = new CategoryModel($db);
+    $catOptions = $categories->getAllCategories();
     $titleCheck = false;
     $contentCheck = false;
 
     if (!empty($_POST['title']) && !empty($_POST['content'])) {
         $title = cleanUpInput($_POST['title']);
         $content = cleanUpInput($_POST['content']);
+        $category = cleanUpInput($_POST['category']);
         if (strlen($_POST['title']) > 30) {
             $titleError = "Sorry, titles must be no more than 30 characters.";
             $titleCheck = false;
@@ -42,9 +46,10 @@
         }
 
         if ($titleCheck && $contentCheck) {
-            $model->addBlogPost($authorid, $title, $content);
+            $model->addBlogPost($authorid, $title, $content, $category);
             $title = '';
             $content = '';
+            $category = '';
             $successMessage = 'Thank you, your post has been submitted. Write another post or view all posts on the homepage.';
         }
     }
@@ -76,6 +81,14 @@
             <p><?php echo $titleError; ?></p>
         </div>
         <div class="w-full sm:w-1/3">
+            <label for="category" class="mb-3 block">Category:</label>
+            <select class="w-full px-3 py-[10.5px] text-lg bg-white" name="category" id="category">
+                <?php
+                foreach ($catOptions as $cat)
+                    {
+                        echo "<option value='$cat->id'>$cat->name</option>";
+                    } ?>
+            </select>
         </div>
     </div>
     <div class="mb-5">
