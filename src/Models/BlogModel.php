@@ -60,21 +60,23 @@ class BlogModel
      */
     public function getBlogById(int $id): Blog|false
     {
-        $query = $this->db->prepare('SELECT `blogposts`.`id` AS "id",
+       $query = $this->db->prepare('SELECT `blogposts`.`id` AS "id",
        `blogposts`.`title` AS "title",
        `blogposts`.`content` AS "content", 
        `blogposts`.`authorid` AS "authorid", 
        `blogposts`.`posttime` AS "posttime", 
        COUNT(`likes`.`id`) AS "total", 
        SUM(`likes`.`value`) AS "likes", 
-       `blogposts`.`category` AS "category",
+       `categories`.`name` AS "category",
        `users`.`username` 
         FROM `blogposts` 
         LEFT JOIN `users`
         ON `blogposts`.`authorid` = `users`.`id`
         LEFT JOIN `likes` 
         ON `blogposts`.`id`=`likes`.`blogid`
-        WHERE `blogposts`.`id` = :id');
+        LEFT JOIN `categories`
+        ON `blogposts`.`category` = `categories`.`id`
+        WHERE `blogposts`.`id` = :id');       
         $query->execute([
             ':id' => $id
         ]);
